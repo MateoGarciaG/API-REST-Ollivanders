@@ -46,3 +46,6 @@ venv_ollivanders
 
 # Pytest Cache
 .pytest_cache
+
+# Informe/Report Código cubierto
+./coverage_annotation
