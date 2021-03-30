@@ -43,3 +43,6 @@ venv_ollivanders
 
 # VSCode
 .vscode
+
+# Pytest Cache
+.pytest_cache
