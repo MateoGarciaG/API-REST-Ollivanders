@@ -1,4 +1,4 @@
-from src.backstagePasses import BackstagePasses
+from domain.backstagePasses import BackstagePasses
 import pytest
 
 

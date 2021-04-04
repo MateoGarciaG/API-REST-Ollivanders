@@ -1,5 +1,5 @@
 
-from src.Sulfuras import Sulfuras
+from domain.Sulfuras import Sulfuras
 import pytest
 
 def test_sulfuras_properties():

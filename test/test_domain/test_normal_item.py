@@ -1,4 +1,4 @@
-from src.normal_item import NormalItem
+from domain.normal_item import NormalItem
 import pytest
 
 

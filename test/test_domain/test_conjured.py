@@ -1,4 +1,4 @@
-from src.Conjured import Conjured
+from domain.Conjured import Conjured
 import pytest
 
 def test_conjured_properties():

@@ -1,8 +1,8 @@
 
-from src.Inventory import Inventory
-from src.Conjured import Conjured
-from src.aged_brie import AgedBrie
-from src.backstagePasses import BackstagePasses
+from domain.Inventory import Inventory
+from domain.Conjured import Conjured
+from domain.aged_brie import AgedBrie
+from domain.backstagePasses import BackstagePasses
 import pytest
 
 def test_inventory_properties():
