@@ -43,3 +43,9 @@ venv_ollivanders
 
 # VSCode
 .vscode
+
+# Pytest Cache
+.pytest_cache
+
+# Informe/Report Código cubierto
+./coverage_annotation
