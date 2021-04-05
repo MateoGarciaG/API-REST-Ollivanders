@@ -57,7 +57,6 @@ class SingletonOllivanders():
             
             return SingletonOllivanders.instanceOllivanders
         
-        
 
 if __name__ == "__main__":
     
