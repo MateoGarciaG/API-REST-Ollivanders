@@ -40,7 +40,7 @@ def close_db(e=None):
     db = g.pop('db', None)
 
     if db is not None:
-        db.close()
+        db.session.close()
 
 
 def init_db():
@@ -70,7 +70,7 @@ def init_db_command():
         llamado init-db que invoca a la función init_db"""
     init_db()
     # Mensaje para cuando se ejecute init-db
-    click.echo('Base de datos inicializada en Mongo Atlas')
+    click.echo('Base de datos inicializada en MySQL')
 
 
 def init_app(app):
