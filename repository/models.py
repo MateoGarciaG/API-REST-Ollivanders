@@ -1,5 +1,5 @@
 # DB SQLAlchemy Object
-from db_connection import db
+from db_connection import db_Sql_Alchemy as db
 
 # Cada Item irá dentro del Items Model
 class Items(db.Model):
@@ -9,6 +9,8 @@ class Items(db.Model):
         db (SQLAlchemy): SQLAlchemy Object is use for desing the model, where is use to create Columns and their types and other details.
 
     """
+    
+    __tablename__ = 'items'
     
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(100), nullable=False)

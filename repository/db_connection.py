@@ -10,6 +10,7 @@ from flask.cli import with_appcontext
 # Models
 # from repository.models import Inventory
 
+db_Sql_Alchemy = SQLAlchemy(app)
 
 
 def get_db():
@@ -23,7 +24,7 @@ def get_db():
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         
         # Agrego el current_app con la APP de flask dentro del objeto SQLAlchemy
-        g.db = SQLAlchemy(app)
+        g.db = db_Sql_Alchemy
         
         # Aún no he creado el Inventory Model
         # g.Inventory = Inventory
