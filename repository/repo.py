@@ -17,7 +17,7 @@ class Factory():
     # def loadInventario():
         
     @staticmethod
-    def initRepo():
+    def loadInventory():
         
         # tienda = Inventory()
         
@@ -58,6 +58,6 @@ class SingletonOllivanders():
             return SingletonOllivanders.instanceOllivanders
         
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     
-    print(Factory.initRepo())
+#     print(Factory.loadInventory())
