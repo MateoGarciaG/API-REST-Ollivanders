@@ -1,5 +1,5 @@
 # DB SQLAlchemy Object
-from db_connection import db_Sql_Alchemy as db
+from db_model import db
 
 # Cada Item irá dentro del Items Model
 class Items(db.Model):
