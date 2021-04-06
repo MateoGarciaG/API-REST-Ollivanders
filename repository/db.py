@@ -72,6 +72,12 @@ class Database():
     @staticmethod
     def get_items():
         
+        """Get All Items from Database
+
+        Returns:
+            (list): Returns a list with all Items
+        """
+        
         db = get_db()
         
         itemsList = []
