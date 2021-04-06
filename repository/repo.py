@@ -18,14 +18,11 @@ class Factory():
         
     @staticmethod
     def loadInventory():
-        
-        # tienda = Inventory()
-        
-        # filename = "C:/Users/Mateo/Documents/APUNTES_DUAL_FP_2020/PROJECTS/Flask_APIRestFul_Ollivanders/API-REST-Ollivanders/repository/data_items.csv"
-        
-        # file = open(filename, 'r')
-        
-        # reader = csv.reader(file)
+        """Let us get the data of some Items from "data_items.csv" file which contains some basic items to insert them into database in other functions
+
+        Returns:
+            (list): Returns a List where each element it's a Dictionary which contains the item
+        """
         
         file_dir = os.path.dirname(__file__)
         
