@@ -1,4 +1,4 @@
-Classes that we use for create Object of Items
+#Classes that we use for create Object of Items
 from domain.Inventory import Inventory
 from domain.normal_item import NormalItem
 from domain.aged_brie import AgedBrie

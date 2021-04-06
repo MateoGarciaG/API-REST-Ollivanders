@@ -2,9 +2,12 @@ from flask import g
 # Importamos el método get_db() para poder manipular la Base de Datos
 from repository.db_connection import get_db
 
+# Importamos el método createObjectItem() de repo.py para poder crear un objeto a partir de la info del item
+from repository.repo import Factory
+
 class Database():
     
-    """Database Class: This class contains all methods that let us filter, search, update, deleting our database, basically consist of a serie of methods that let us manipulate the dabase. For this reason, this class contains the logic of this manipulation of database, which it's important because this class belong to Repository Module where this module is where all related to database is. The main advantage fo this class is that other module can use this class and use these methods without knowling the logic behind, so for example. Service module doesn't need to implement logic to manipulate Database in its module, but Service module can directly use this class to manipulate Database. There is less coupling.
+    """Database Class: This class contains all methods that let us filter, search, update, deleting our database, basically consist of a serie of methods that let us manipulate the dabase. For this reason, this class contains the logic of this manipulation of database, which it's important because this class belong to Repository Module where this module is where all related to database is. The main advantage fo this class is that other module can use this class and use these methods without knowling the logic behind, so for example. Service module doesn't need to implement logic to manipulate Database in its module, but Service module can directly use this class to manipulate Database. There will be less coupling.
     """
     
     @staticmethod
@@ -126,5 +129,23 @@ class Database():
         
     @staticmethod
     def update_quality():
-        pass
+        
+        
+        db = get_db()
+        
+        for item in g.Items.query.all():
+            
+            # Creamos el objeto Item a partir de la info de la Lista que insertamos en los párametros del método: createObjectItem()
+            itemObject = Factory.createObjectItem([item.name, item.sell_in, item.quality])
+            
+            # Actualizamos la calidad del item
+            itemObject.update_quality()
+            
+            # Actualizamos los datos de cada item
+            item.sell_in = itemObject.get_sell_in()
+            item.quality = itemObject.get_quality()
+            # Guardamos los datos actualizados
+            db.session.commit()
+        
+        return Database.get_items()
     
