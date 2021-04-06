@@ -55,3 +55,8 @@ class Service():
         Database.delete_item(args_content)
         
         return jsonify({"state": "The Item was deleted."})
+    
+    @staticmethod
+    def update_quality():
+        
+        return Database.update_quality()
