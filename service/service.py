@@ -63,6 +63,14 @@ class Service():
     @staticmethod
     @marshal_with(resource_fields)
     def filter_by_quality(quality):
+        """Return those items who satisfied the criteria of db.py method: Database.filter_by_quality(). It's basically filter those items whose quality is the same as the parameter
+
+        Args:
+            quality (int): The quality of the item
+
+        Returns:
+            list: Returns a list from the result of the method: Database.filter_by_quality()
+        """
         return Service.check_items(Database.filter_by_quality(quality))
     
     @staticmethod
