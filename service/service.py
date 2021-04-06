@@ -39,3 +39,11 @@ class Service():
     def get_items():
         
         return Database.get_items()
+    
+    @staticmethod
+    @marshal_with(resource_fields)
+    def post_items(args_content):
+        
+        Database.post_item(args_content)
+        
+        return jsonify({"state": "The Item was added."})
