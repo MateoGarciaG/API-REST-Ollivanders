@@ -20,6 +20,14 @@ class Service():
     
     @staticmethod
     def check_items(items):
+        """Check if the items are not empty or not, if it's empty throw an Abort()
+
+        Args:
+            items (list): List of items
+
+        Returns:
+            (list): If the list is not empty, returns the same list
+        """
         if not items:
             abort(404, message="There is not items that satisfied this criteria")
         return items
