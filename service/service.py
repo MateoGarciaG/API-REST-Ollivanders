@@ -36,7 +36,7 @@ class Service():
     @staticmethod
     @marshal_with(resource_fields)
     def filter_by_name(name):
-        """Return those items who satisfied the criteria of db.py method: Database.filter_by_name()
+        """Return those items who satisfied the criteria of db.py method: Database.filter_by_name(). It's basically filter those items whose name is the same as the parameter
 
         Args:
             name (string): The name of the item
@@ -49,6 +49,14 @@ class Service():
     @staticmethod
     @marshal_with(resource_fields)
     def filter_by_sell_in(sell_in):
+        """Return those items who satisfied the criteria of db.py method: Database.filter_by_sell_in(). It's basically filter those items whose sell_in is the same as the parameter
+
+        Args:
+            sell_in (int): The sell_in of the item
+
+        Returns:
+            list: Returns a list from the result of the method: Database.filter_by_sell_in()
+        """
         return Service.check_items(Database.filter_by_sell_in(sell_in))
     
 
