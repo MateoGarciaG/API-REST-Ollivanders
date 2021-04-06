@@ -35,6 +35,14 @@ class Database():
     @staticmethod
     def filter_by_quality(quality):
         
+        db = get_db()
+        
+        itemsList = []
+        
+        for item in g.Items.query.filter_by(quality=quality):
+            itemsList.append(item)
+            
+        return itemsList
     
     @staticmethod
     def get_items():
