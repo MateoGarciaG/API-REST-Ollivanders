@@ -29,3 +29,7 @@ class Service():
     def filter_by_sell_in(sell_in):
         return Service.check_items(Database.filter_by_sell_in(sell_in))
     
+
+    @staticmethod
+    def filter_by_quality(quality):
+        return Service.check_items(Database.filter_by_quality(quality))
