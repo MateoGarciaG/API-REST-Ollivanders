@@ -86,6 +86,14 @@ class Service():
     
     @staticmethod
     def post_items(args_content):
+        """Add a new item
+
+        Args:
+            args_content (dict): A dictionary that contains data from an Item
+
+        Returns:
+            dict: Returns a Dictionary with format of a Jsonify
+        """
         
         Database.post_item(args_content)
         
