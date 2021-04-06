@@ -33,3 +33,9 @@ class Service():
     @staticmethod
     def filter_by_quality(quality):
         return Service.check_items(Database.filter_by_quality(quality))
+    
+    @staticmethod
+    @marshal_with(resource_fields)
+    def get_items():
+        
+        return Database.get_items()
