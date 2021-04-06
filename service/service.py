@@ -5,7 +5,7 @@ from flask_restful import marshal_with, fields, abort
 from flask import jsonify
 
 # Importamos la Database Class con los métodos
-from repository.db import *
+from repository.db import Database
 class Service():
     """Service: This class consist of a serie of methods that interact with Database/repository Module, where through these methods we can get or manipulate the data of database to send to the client with the Response
 
