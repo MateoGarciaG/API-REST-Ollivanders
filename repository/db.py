@@ -129,7 +129,11 @@ class Database():
         
     @staticmethod
     def update_quality():
-        
+        """Update the quality of ALL items that we have in DataBase and after we return the entire Inventory to the Cliente
+
+        Returns:
+            (list): Returns a list with all Items, each item is a dictionary
+        """
         
         db = get_db()
         
