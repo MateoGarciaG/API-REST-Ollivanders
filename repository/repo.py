@@ -1,10 +1,10 @@
-# Classes that we use for create Object of Items
-# from domain.Inventory import Inventory
-# from domain.normal_item import NormalItem
-# from domain.aged_brie import AgedBrie
-# from domain.backstagePasses import BackstagePasses
-# from domain.Sulfuras import Sulfuras
-# from domain.Conjured import Conjured
+Classes that we use for create Object of Items
+from domain.Inventory import Inventory
+from domain.normal_item import NormalItem
+from domain.aged_brie import AgedBrie
+from domain.backstagePasses import BackstagePasses
+from domain.Sulfuras import Sulfuras
+from domain.Conjured import Conjured
 
 # CSV
 import csv
@@ -43,6 +43,33 @@ class Factory():
                 inventory.append({'name': row[0], 'sell_in': int(row[1]), 'quality': int(row[2]) })
                 
         return inventory
+    
+    @staticmethod
+    def createObjectItem(item):
+        """Create an Item Object which depends of the name of the Item to asign this item to a Class to create an Object from the Class selected. This method was created by @dfleta from github
+
+        Args:
+            item (list): A list that contains the info of a item, which have three element. Example:
+            item = ['Elixir of the Mongoose', ' 5', ' 7']
+
+        Returns:
+            [Object]: Returns an Object which the type of this object depends of the Class which was selected from the name of the item
+        """
+        
+        dictClassesItems = {"Sulfuras, Hand of Ragnaros": "Sulfuras",
+                                "Aged Brie": "AgedBrie",
+                                "Backstage passes to a TAFKAL80ETC concert": "BackstagePasses",
+                                "Conjured Mana Cake": "Conjured",
+                                "+5 Dexterity Vest": "Conjured",
+                                "Normal Item": "NormalItem"}
+
+        try:
+            itemName = item[0]
+            classItem = dictClassesItems[itemName]
+        except KeyError:
+            classItem = dictClassesItems["Normal Item"]
+        finally:
+            return eval(classItem + str(tuple(item)))
     
 class SingletonOllivanders():
     
