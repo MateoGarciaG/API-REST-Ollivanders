@@ -59,7 +59,11 @@ class Database():
     
     @staticmethod
     def post_item(args_content):
-        
+        """Add a new item into de Database Ollivanders into the Items Table, don't return nothing
+
+        Args:
+            args_content (dict): Contains the dictionary from parse_args() method, which in the other module let us validate the Request object values
+        """
         db = get_db()
         
         add_item = g.Items(name=args_content["name"], sell_in=args_content["sell_in"], quality=args_content["quality"])
