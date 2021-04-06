@@ -47,3 +47,11 @@ class Service():
         Database.post_item(args_content)
         
         return jsonify({"state": "The Item was added."})
+    
+    @staticmethod
+    @marshal_with(resource_fields)
+    def delete_items(args_content):
+        
+        Database.delete_item(args_content)
+        
+        return jsonify({"state": "The Item was deleted."})
