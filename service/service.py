@@ -116,5 +116,10 @@ class Service():
     
     @staticmethod
     def update_quality():
+        """Gets all Items with their Quality updated, this through the method: Database.update_quality()
+
+        Returns:
+            list: Returns a list with al Items
+        """
         
         return Database.update_quality()
