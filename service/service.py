@@ -25,3 +25,7 @@ class Service():
     def filter_by_name(name):
         return Service.check_items(Database.filter_by_name(name))
     
+    @staticmethod
+    def filter_by_sell_in(sell_in):
+        return Service.check_items(Database.filter_by_sell_in(sell_in))
+    
