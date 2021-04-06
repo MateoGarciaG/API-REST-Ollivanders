@@ -76,6 +76,11 @@ class Service():
     @staticmethod
     @marshal_with(resource_fields)
     def get_items():
+        """Return all items from our Database through the method: Database.get_items()
+
+        Returns:
+            list: Returns a list from the result of the method: Database.get_items()
+        """
         
         return Database.get_items()
     
