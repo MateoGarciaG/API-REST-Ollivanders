@@ -23,6 +23,14 @@ class Database():
     @staticmethod
     def filter_by_sell_in(sell_in):
         
+        db = get_db()
+        
+        itemsList = []
+        
+        for item in g.Items.query.filter_by(sell_in=sell_in):
+            itemsList.append(item)
+            
+        return itemsList
     
     @staticmethod
     def filter_by_quality(quality):
