@@ -31,6 +31,14 @@ class Database():
         
     @staticmethod
     def filter_by_sell_in(sell_in):
+        """Let us filter an Item by the sell_in of this item
+
+        Args:
+            sell_in (int): Sell_in of the Item
+
+        Returns:
+            list: Returns a List of Items that satisfies the query of Items Query Model, in this case. Those items whose have that sell_in
+        """
         
         db = get_db()
         
