@@ -73,6 +73,11 @@ class Database():
         
     @staticmethod
     def delete_item(args_content):
+        """Delete an item into de Database Ollivanders into the Items Table, don't return nothing
+
+        Args:
+            args_content (dict): Contains the dictionary from parse_args() method, which in the other module let us validate the Request object values
+        """
         
         db = get_db()
         
