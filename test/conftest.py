@@ -1,5 +1,5 @@
 import pytest
-from controller.hello_ollivanders import create_app
+from controller.factory import create_app
 
 @pytest.fixture
 def client():

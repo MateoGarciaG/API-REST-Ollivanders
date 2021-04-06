@@ -1,10 +1,12 @@
 #Classes that we use for create Object of Items
-from domain.Inventory import Inventory
+# from domain.Inventory import Inventory
+
 from domain.normal_item import NormalItem
 from domain.aged_brie import AgedBrie
 from domain.backstagePasses import BackstagePasses
 from domain.Sulfuras import Sulfuras
 from domain.Conjured import Conjured
+
 
 # CSV
 import csv
@@ -65,8 +67,8 @@ class Factory():
             classItem = dictClassesItems[itemName]
         except KeyError:
             classItem = dictClassesItems["Normal Item"]
-        finally:
-            return eval(classItem + str(tuple(item)))
+
+        return eval(classItem + str(tuple(item)))
     
 class SingletonOllivanders():
     
@@ -85,3 +87,9 @@ class SingletonOllivanders():
 # if __name__ == "__main__":
     
 #     print(Factory.loadInventory())
+    
+#     itemback = Factory.createObjectItem(["Backstage passes to a TAFKAL80ETC concert", 10, 20])
+
+#     print(itemback.get_quality())
+
+#     print(itemback.__str__())
