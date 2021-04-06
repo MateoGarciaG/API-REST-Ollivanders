@@ -36,6 +36,14 @@ class Service():
     @staticmethod
     @marshal_with(resource_fields)
     def filter_by_name(name):
+        """Return those items who satisfied the criteria of db.py method: Database.filter_by_name()
+
+        Args:
+            name (string): The name of the item
+
+        Returns:
+            list: Returns a list from the result of the method: Database.filter_by_name()
+        """
         return Service.check_items(Database.filter_by_name(name))
     
     @staticmethod
