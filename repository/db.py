@@ -15,6 +15,7 @@ class Database():
         
         itemsList = []
         
+        # Necesito crear un bucle debido a que el resultado de la QUERY es un objeto con todos los resultados.
         for item in g.Items.query.filter_by(name=name):
             itemsList.append(item)
             
@@ -47,6 +48,14 @@ class Database():
     @staticmethod
     def get_items():
         
+        db = get_db()
+        
+        itemsList = []
+        
+        for item in g.Items.query.all():
+            itemsList.append(item)
+            
+        return itemsList
     
     @staticmethod
     def post_item():
