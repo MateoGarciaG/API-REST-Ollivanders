@@ -10,6 +10,14 @@ class Database():
     
     @staticmethod
     def filter_by_name(name):
+        """Let us filter an Item by the name of this item
+
+        Args:
+            name (string): Name of the Item
+
+        Returns:
+            list: Returns a List of Items that satisfies the query of Items Query Model
+        """
         
         db = get_db()
         
@@ -89,7 +97,9 @@ class Database():
         
     @staticmethod
     def update_quality():
-        
+        pass
+    
+    
     @staticmethod
     def check_items(items):
         if not items:
