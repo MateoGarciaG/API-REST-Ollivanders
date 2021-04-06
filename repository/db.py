@@ -1,5 +1,4 @@
 from flask import g
-from flask_restful import abort
 # Importamos el método get_db() para poder manipular la Base de Datos
 from repository.db_connection import get_db
 
@@ -21,11 +20,13 @@ class Database():
         
         db = get_db()
         
-        itemsList = []
+        # itemsList = []
         
         # Necesito crear un bucle debido a que el resultado de la QUERY es un objeto con todos los resultados.
-        for item in g.Items.query.filter_by(name=name):
-            itemsList.append(item)
+        # for item in g.Items.query.filter_by(name=name):
+        #     itemsList.append(item)
+            
+        itemsList = [item for item in g.Items.query.filter_by(name=name)]
             
         return itemsList
         
@@ -42,10 +43,12 @@ class Database():
         
         db = get_db()
         
-        itemsList = []
+        # itemsList = []
         
-        for item in g.Items.query.filter_by(sell_in=sell_in):
-            itemsList.append(item)
+        # for item in g.Items.query.filter_by(sell_in=sell_in):
+        #     itemsList.append(item)
+            
+        itemsList = [item for item in g.Items.query.filter_by(sell_in=sell_in)]
             
         return itemsList
     
@@ -62,10 +65,12 @@ class Database():
         
         db = get_db()
         
-        itemsList = []
+        # itemsList = []
         
-        for item in g.Items.query.filter_by(quality=quality):
-            itemsList.append(item)
+        # for item in g.Items.query.filter_by(quality=quality):
+        #     itemsList.append(item)
+            
+        itemsList = [item for item in g.Items.query.filter_by(quality=quality)]
             
         return itemsList
     
@@ -80,10 +85,12 @@ class Database():
         
         db = get_db()
         
-        itemsList = []
+        # itemsList = []
         
-        for item in g.Items.query.all():
-            itemsList.append(item)
+        # for item in g.Items.query.all():
+        #     itemsList.append(item)
+            
+        itemsList = [item for item in g.Items.query.all()]
             
         return itemsList
     
@@ -121,9 +128,3 @@ class Database():
     def update_quality():
         pass
     
-    
-    @staticmethod
-    def check_items(items):
-        if not items:
-            abort(404, message="There is not items that match this criteria")
-        return list(items)
