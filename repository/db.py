@@ -72,8 +72,14 @@ class Database():
         db.session.commit()
         
     @staticmethod
-    def delete_item():
+    def delete_item(args_content):
         
+        db = get_db()
+        
+        delete_item = g.Items.query.filter_by(name=args_content['name'], sell_in=args_content['sell_in'],quality=args_content['quality']).first()
+        
+        db.session.delete(delete_item)
+        db.session.commit()
         
         
     @staticmethod
