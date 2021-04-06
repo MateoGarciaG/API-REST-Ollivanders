@@ -58,10 +58,19 @@ class Database():
         return itemsList
     
     @staticmethod
-    def post_item():
+    def post_item(args_content):
+        
+        db = get_db()
+        
+        add_item = g.Items(name=args_content["name"], sell_in=args_content["sell_in"], quality=args_content["quality"])
+        
+        db.session.add(add_item)
+        db.session.commit()
         
     @staticmethod
     def delete_item():
+        
+        
         
     @staticmethod
     def update_quality():
