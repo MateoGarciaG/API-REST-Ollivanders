@@ -1,5 +1,5 @@
 from flask import g
-
+from flask_restful import abort
 # Importamos el método get_db() para poder manipular la Base de Datos
 from repository.db_connection import get_db
 
@@ -10,6 +10,15 @@ class Database():
     
     @staticmethod
     def filter_by_name(name):
+        
+        db = get_db()
+        
+        itemsList = []
+        
+        for item in g.Items.query.filter_by(name=name):
+            itemsList.append(item)
+            
+        return itemsList
         
     @staticmethod
     def filter_by_sell_in(sell_in):
