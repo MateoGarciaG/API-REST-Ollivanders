@@ -51,6 +51,14 @@ class Database():
     
     @staticmethod
     def filter_by_quality(quality):
+        """Let us filter an Item by the quality of this item
+
+        Args:
+            quality (int): quality of the Item
+
+        Returns:
+            list: Returns a List of Items that satisfies the query of Items Query Model, in this case. Those items whose have that quality
+        """
         
         db = get_db()
         
