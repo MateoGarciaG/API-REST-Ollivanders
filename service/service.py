@@ -86,7 +86,7 @@ class Service():
     
     @staticmethod
     def post_items(args_content):
-        """Add a new item
+        """Add a new item, this through the method: Database.post_item() whose receive the args_content parameter
 
         Args:
             args_content (dict): A dictionary that contains data from an Item
@@ -101,6 +101,14 @@ class Service():
     
     @staticmethod
     def delete_items(args_content):
+        """Delete an item, this through the method: Database.delete_item() whose receive the args_content parameter
+
+        Args:
+            args_content (dict): A dictionary that contains data from an Item
+
+        Returns:
+            dict: Returns a Dictionary with format of a Jsonify
+        """
         
         Database.delete_item(args_content)
         
