@@ -25,14 +25,16 @@ class Items(Resource):
             dict: Returns a Dictionary with the item already validatedº
         """
         
+        # location='json' dentro de add_argument() nos permite indicar que los datos deben estar en un json, la he eliminado porque con curl no erá posible usando el location='json'
+        
         # Nos permite validad el objeto Request y sus valores
         parser = reqparse.RequestParser(bundle_errors=True)
         # Name of item
-        parser.add_argument('name', type=str, required=True, location='json', help="Name of the Item is required")
+        parser.add_argument('name', type=str, required=True, help="Name of the Item is required")
         # Sell_in of Item
-        parser.add_argument('sell_in', type=int, required=True, location='json', help="Sell_in of the Item is required")
+        parser.add_argument('sell_in', type=int, required=True, help="Sell_in of the Item is required")
         # Quality
-        parser.add_argument('quality', type=int, required=True, location='json', help="Quality of the Item is required")
+        parser.add_argument('quality', type=int, required=True, help="Quality of the Item is required")
         
         # Dictionary with all args from parser
         return parser.parse_args()
