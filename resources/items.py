@@ -1,4 +1,4 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, Api
 # Importamos el contenido de Service
 from service.service import Service
 from repository.models.items import Items
