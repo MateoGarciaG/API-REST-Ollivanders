@@ -41,7 +41,7 @@ class Items(Resource):
         """Let us add a new item/resource
 
         Returns:
-            string: Returns a string with a message of the item have been added
+            string: Returns a string with a message of the item has been added
         """
         
         args_content = self.parseRequest()
@@ -50,3 +50,11 @@ class Items(Resource):
         Service.post_items(args_content)
         
         return 'New Item has been added', 201
+    
+    def delete(self):
+        
+        args_content = self.parseRequest()
+        
+        Service.delete_items(args_content)
+        
+        return 'The item has been deleted', 204
