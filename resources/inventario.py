@@ -5,5 +5,10 @@ from service.service import Service
 class Inventario(Resource):
     
     def get(self):
+        """Gets a list of all items
+
+        Returns:
+            list: Returns a List with items, each item is a dictionary
+        """
         return Service.get_items(), 200
     
