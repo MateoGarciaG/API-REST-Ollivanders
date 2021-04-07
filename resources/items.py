@@ -16,7 +16,7 @@ class Items(Resource):
             list: Returns a list with all item whose satified the criteria of hve the same name of the parameter
         """
         
-        return Service.get_items(item_name), 200
+        return Service.filter_by_name(item_name), 200
     
     def parseRequest(self):
         """Let us validate values from the Request through "reqparse" and its object: RequestParser()
