@@ -4,6 +4,7 @@ from repository.db_connection import get_db
 
 # Importamos el método createObjectItem() de repo.py para poder crear un objeto a partir de la info del item
 from repository.repo import Factory
+from flask import abort
 
 class Database():
     
@@ -123,8 +124,12 @@ class Database():
         
         delete_item = g.Items.query.filter_by(name=args_content['name'], sell_in=args_content['sell_in'],quality=args_content['quality']).first()
         
-        db.session.delete(delete_item)
-        db.session.commit()
+        if not delete_item:
+            abort(404, message="Don't exist this item")
+            
+        else:
+            db.session.delete(delete_item)
+            db.session.commit()
         
         
     @staticmethod
