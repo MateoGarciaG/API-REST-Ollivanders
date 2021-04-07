@@ -7,7 +7,7 @@ from resources.inventario import Inventario
 from resources.updateQuality import UpdateQuality
 from resources.items import Items
 from resources.quality import Quality
-from resources.sellin import SellIn
+from resources.sellin import Sellin
 
 # Import from Repository the db_connection.py
 from repository import db_connection
@@ -16,14 +16,14 @@ from repository import db_connection
 app = Flask(__name__)
 
 # Init the Flask APP
-db_connection.init_app()
+db_connection.init_app(app)
 
 #API REST to be able to test
 api = Api(app, catch_all_404s=True)
 
 # Add Resources
 api.add_resource(Wellcome, '/')
-api.add_resource(Inventory, '/inventory')
+api.add_resource(Inventario, '/inventory')
 api.add_resource(Items, '/items/name/<string:item_name>', '/items')
 api.add_resource(Sellin, '/items/sellin/<int:item_sell_in>')
 api.add_resource(Quality, '/items/quality/<int:item_quality>')

@@ -17,7 +17,7 @@ def create_app():
     app = Flask(__name__)
     
     # Init the Flask APP
-    db_connection.init_app()
+    db_connection.init_app(app)
 
     #API REST to be able to test
     api = Api(app, catch_all_404s=True)
