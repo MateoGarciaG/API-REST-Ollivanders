@@ -21,7 +21,7 @@ class Items(Resource):
         """Let us validate values from the Request through "reqparse" and its object: RequestParser()
 
         Returns:
-            dict: Returns a Dictionary with the item already validated
+            dict: Returns a Dictionary with the item already validatedº
         """
         
         # Nos permite validad el objeto Request y sus valores
@@ -37,3 +37,11 @@ class Items(Resource):
         return parser.parse_args()
     
     
+    def post(self):
+        
+        args_content = self.parseRequest()
+        
+        # Llamo al método post_items y le pasó el args_content
+        Service.post_items(args_content)
+        
+        return 'New Item has been added', 201
