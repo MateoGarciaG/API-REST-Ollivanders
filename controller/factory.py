@@ -1,6 +1,13 @@
 from flask import Flask
 from flask_restful import Resource, Api
 
+# Import Resources
+from resources.inventario import Inventario
+from resources.updateQuality import UpdateQuality
+from resources.items import Items
+from resources.quality import Quality
+from resources.sellin import SellIn
+
 def create_app():
 
     app = Flask(__name__)
