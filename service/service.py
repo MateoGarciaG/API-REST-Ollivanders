@@ -90,14 +90,10 @@ class Service():
 
         Args:
             args_content (dict): A dictionary that contains data from an Item
-
-        Returns:
-            dict: Returns a Dictionary with format of a Jsonify
         """
         
         Database.post_item(args_content)
         
-        return jsonify({"state": "The Item was added."})
     
     @staticmethod
     def delete_items(args_content):
@@ -109,10 +105,8 @@ class Service():
         Returns:
             dict: Returns a Dictionary with format of a Jsonify
         """
-        
         Database.delete_item(args_content)
         
-        return jsonify({"state": "The Item was deleted."})
     
     @staticmethod
     def update_quality():
