@@ -1,6 +1,4 @@
 from flask_restful import Resource, Api
-from repository.models import Item
-
 
 class Wellcome(Resource):
 
