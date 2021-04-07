@@ -1,4 +1,4 @@
-from flask_restful import Resource
+from flask_restful import Resource, Api
 # Importamos el contenido de Service
 from service.service import Service
 
