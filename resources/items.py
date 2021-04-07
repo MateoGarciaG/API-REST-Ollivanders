@@ -18,6 +18,11 @@ class Items(Resource):
         return Service.get_items(item_name), 200
     
     def parseRequest(self):
+        """Let us validate values from the Request through "reqparse" and its object: RequestParser()
+
+        Returns:
+            dict: Returns a Dictionary with the item already validated
+        """
         
         # Nos permite validad el objeto Request y sus valores
         parser = reqparse.RequestParser(bundle_errors=True)
@@ -30,3 +35,5 @@ class Items(Resource):
         
         # Dictionary with all args from parser
         return parser.parse_args()
+    
+    
