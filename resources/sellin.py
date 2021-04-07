@@ -5,5 +5,13 @@ from service.service import Service
 class Sellin(Resource):
     
     # Due to the name of the parameter must be the same as the route: /items/sellin/<itemSellin>
-    def get(self, itemSellIn):
-        return Service.filter_by_sell_in(itemSellIn), 200
+    def get(self, item_sell_in):
+        """Gets those items whose sell_in is the same as the value from the parameter
+
+        Args:
+            itemSellIn (int): sell_in of the item
+
+        Returns:
+            list: Retuns a list with all item whose have the same sell_in
+        """
+        return Service.filter_by_sell_in(item_sell_in), 200
