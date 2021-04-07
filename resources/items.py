@@ -52,6 +52,11 @@ class Items(Resource):
         return 'New Item has been added', 201
     
     def delete(self):
+        """Let us delete an item/resource
+
+        Returns:
+            string: Returns a string with a message of the item has been deleted
+        """
         
         args_content = self.parseRequest()
         
