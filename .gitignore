@@ -49,3 +49,11 @@ venv_ollivanders
 
 # Informe/Report Código cubierto
 ./coverage_annotation
+
+# Pycharm
+.idea/
+.run/
+
+*.ipr
+*.iml
+*.iws
