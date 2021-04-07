@@ -38,6 +38,11 @@ class Items(Resource):
     
     
     def post(self):
+        """Let us add a new item/resource
+
+        Returns:
+            string: Returns a string with a message of the item have been added
+        """
         
         args_content = self.parseRequest()
         
