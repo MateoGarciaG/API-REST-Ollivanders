@@ -5,6 +5,7 @@ from repository.models.items import Items
 
 class Items(Resource):
     
+    # Due to the name of the parameter must be the same as the route: /items/<item_name>
     def get(self, item_name):
         """Get an item by its name
 
