@@ -9,6 +9,7 @@ from flask.cli import with_appcontext
 
 # Models
 from repository.models.items import Items
+from repository.models.db_model import db
 #Factory Class
 from repository.repo import Factory
 
@@ -25,7 +26,8 @@ def get_db():
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         
         # Agrego el current_app con la APP de flask dentro del objeto SQLAlchemy
-        g.db = SQLAlchemy(app)
+        db.init_app(app)
+        g.db = db
         
         # Agregamos al objeto G, la propiedad ITEMS con el valor del modelo Items
         g.Items = Items
