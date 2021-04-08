@@ -1,6 +1,8 @@
 from flask_restful import Resource, reqparse, Api
 # Importamos el contenido de Service
 from service.service import Service
+# Importamos Jsonify y Make_Response()
+from flask import jsonify, make_response
 
 class Items(Resource):
     
@@ -12,10 +14,16 @@ class Items(Resource):
             item_name (string): name of the item
 
         Returns:
-            list: Returns a list with all item whose satified the criteria of hve the same name of the parameter
+            make_response Object: Returns a custom make_response() object with with all item whose satified the criteria of hve the same name of the parameter
         """
         
-        return Service.filter_by_name(item_name), 200
+        response = make_response(jsonify(Service.filter_by_name(item_name)))
+        response.headers['custom-response'] = 'Item filter by name was returned'
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 200
+        response.headers['warning'] = 'Custom Warning, just appears when it\' an warning'
+        
+        return response
     
     def parseRequest(self):
         """Let us validate values from the Request through "reqparse" and its object: RequestParser()
