@@ -12,7 +12,7 @@ class Inventario(Resource):
         Makes a custom Response Object
 
         Returns:
-            list: Returns a List with items, each item is a dictionary
+            make_response Object: Returns a custom make_response() object with the List with items, each item is a dictionary
         """
         # response = Response(response=json.dump(Service.get_items()), mimetype='application/json', status=200, )
         

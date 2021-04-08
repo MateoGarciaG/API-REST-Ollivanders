@@ -1,4 +1,6 @@
 from flask_restful import Resource, Api
+# Importamos Jsonify y Make_Response()
+from flask import jsonify, make_response
 
 class Wellcome(Resource):
 
@@ -6,6 +8,15 @@ class Wellcome(Resource):
         """Get a message of Welcome Ollivanders
 
         Returns:
-            dict: Returns a dictionary with the wellcome message
+            make_response Object: Returns a custom make_response() object with a dictionary with the wellcome message
         """
-        return {'Welcome!': 'Ollivanders'}
+        
+        response = make_response(jsonify({'Welcome!': 'Ollivanders'}))
+        response.headers['custom-response'] = 'Welcome Resource is returned successfully!'
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 200
+        response.headers['warning'] = 'Custom Warning, just appears when it\' an warning'
+        
+        return response
+        
+        # return {'Welcome!': 'Ollivanders'}

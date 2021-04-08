@@ -1,6 +1,8 @@
 from flask_restful import Resource, reqparse, Api
 # Importamos el contenido de Service
 from service.service import Service
+# Importamos Jsonify y Make_Response()
+from flask import jsonify, make_response
 
 class Items(Resource):
     
@@ -12,10 +14,17 @@ class Items(Resource):
             item_name (string): name of the item
 
         Returns:
-            list: Returns a list with all item whose satified the criteria of hve the same name of the parameter
+            make_response Object: Returns a custom make_response() object with with all item whose satified the criteria of hve the same name of the parameter
         """
         
-        return Service.filter_by_name(item_name), 200
+        response = make_response(jsonify(Service.filter_by_name(item_name)))
+        response.headers['custom-response'] = 'Item filter by name was returned'
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 200
+        response.headers['warning'] = 'Custom Warning, just appears when it\' an warning'
+        
+        return response
+        # return Service.filter_by_name(item_name), 200
     
     def parseRequest(self):
         """Let us validate values from the Request through "reqparse" and its object: RequestParser()
@@ -43,7 +52,7 @@ class Items(Resource):
         """Let us add a new item/resource
 
         Returns:
-            string: Returns a string with a message of the item has been added
+            make_response Object: Returns a custom make_response() object with a message of the item has been added
         """
         
         args_content = self.parseRequest()
@@ -51,18 +60,34 @@ class Items(Resource):
         # Llamo al método post_items y le pasó el args_content
         Service.post_item(args_content)
         
-        return 'New Item has been added', 201
+        response = make_response(jsonify('New Item has been added'))
+        response.headers['custom-response'] = 'The item was added successfully!'
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 201
+        response.headers['warning'] = 'Custom Warning, just appears when it\' an warning'
+        
+        return response
+        
+        # return 'New Item has been added', 201
     
     def delete(self):
         """Let us delete an item/resource
 
         Returns:
-            string: Returns a string with a message of the item has been deleted
+            make_response Object: Returns a custom make_response() object without a message, but the header of the response object have a message of the item has been deleted
         """
         
         args_content = self.parseRequest()
         
         Service.delete_item(args_content)
         
+        response = make_response(jsonify(''))
+        response.headers['custom-response'] = 'The item was delete successfully!'
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 204
+        response.headers['warning'] = 'Custom Warning, just appears when it\' an warning'
+        
+        return response
+        
         # DELETE Request don't receive a Message Response
-        return '', 204
+        # return '', 204
