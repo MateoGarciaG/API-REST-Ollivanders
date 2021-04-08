@@ -1,4 +1,6 @@
 # DB SQLAlchemy Object
+# from repository.models.db_model import db
+from flask import g
 from repository.models.db_model import db
 
 # Cada Item irá dentro del Items Model
