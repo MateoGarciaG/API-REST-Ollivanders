@@ -1,7 +1,6 @@
 from flask_restful import Resource, reqparse, Api
 # Importamos el contenido de Service
 from service.service import Service
-from repository.models.items import Items
 
 class Items(Resource):
     
@@ -48,7 +47,7 @@ class Items(Resource):
         args_content = self.parseRequest()
         
         # Llamo al método post_items y le pasó el args_content
-        Service.post_items(args_content)
+        Service.post_item(args_content)
         
         return 'New Item has been added', 201
     
@@ -61,6 +60,7 @@ class Items(Resource):
         
         args_content = self.parseRequest()
         
-        Service.delete_items(args_content)
+        Service.delete_item(args_content)
         
-        return 'The item has been deleted', 204
+        # DELETE Request don't receive a Message Response
+        return '', 204
