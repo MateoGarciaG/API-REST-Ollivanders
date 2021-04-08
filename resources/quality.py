@@ -4,6 +4,7 @@ from service.service import Service
 # Importamos Jsonify y Make_Response()
 from flask import jsonify, make_response
 
+
 class Quality(Resource):
     
     # Due to the name of the parameter must be the same as the route: /items/quality/<item_quality>
