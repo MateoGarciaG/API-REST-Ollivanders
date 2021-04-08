@@ -72,12 +72,20 @@ class Items(Resource):
         """Let us delete an item/resource
 
         Returns:
-            string: Returns a string with a message of the item has been deleted
+            make_response Object: Returns a custom make_response() object without a message, but the header of the response object have a message of the item has been deleted
         """
         
         args_content = self.parseRequest()
         
         Service.delete_item(args_content)
         
+        response = make_response(jsonify(''))
+        response.headers['custom-response'] = 'The item was delete successfully!'
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 204
+        response.headers['warning'] = 'Custom Warning, just appears when it\' an warning'
+        
+        return response
+        
         # DELETE Request don't receive a Message Response
-        return '', 204
+        # return '', 204
