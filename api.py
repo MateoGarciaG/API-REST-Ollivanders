@@ -15,6 +15,16 @@ from repository import db_connection
 
 app = Flask(__name__)
 
+if app.config["ENV"] == "production":
+    #Configuration APP Flask
+    app.config.from_object("config.ProductionConfig")
+elif app.config["ENV"] == "testing":
+    #Configuration APP Flask
+    app.config.from_object("config.TestingConfig")
+else:
+    #Configuration APP Flask
+    app.config.from_object("config.DevelopmentConfig")
+
 # Init the Flask APP
 db_connection.init_app(app)
 
