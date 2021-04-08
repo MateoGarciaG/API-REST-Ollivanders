@@ -1,14 +1,16 @@
-
 # marshal_with for validate and filter fields
 # abort for check function
 from flask_restful import marshal_with, fields, abort
-from flask import jsonify
+from flask import g
+# Importamos el método get_db() para poder manipular la Base de Datos
+from repository.db_connection import get_db
 
-# Importamos la Database Class con los métodos
-from repository.db import Database
+# Importamos el método createObjectItem() de repo.py para poder crear un objeto a partir de la info del item
+from repository.repo import Factory
+
 class Service():
-    """Service: This class consist of a serie of methods that interact with Database/repository Module, where through these methods we can get or manipulate the data of database to send to the client with the Response
-
+    
+    """Service Class: This class contains all methods that let us filter, search, update, deleting our database, basically consist of a serie of methods that let us manipulate the dabase. For this reason, this class contains the logic of this manipulation of database. Service module let us There will be less coupling.
     """
     
     # Estructura de campos que serán usados en el marshal_with()
@@ -32,88 +34,150 @@ class Service():
             abort(404, message="There is not items that satisfied this criteria")
         return items
     
-    
     @staticmethod
     @marshal_with(resource_fields)
     def filter_by_name(name):
-        """Return those items who satisfied the criteria of db.py method: Database.filter_by_name(). It's basically filter those items whose name is the same as the parameter
+        """Let us filter an Item by the name of this item
 
         Args:
-            name (string): The name of the item
+            name (string): Name of the Item
 
         Returns:
-            list: Returns a list from the result of the method: Database.filter_by_name()
+            list: Returns a List of Items that satisfies the query of Items Query Model
         """
-        return Service.check_items(Database.filter_by_name(name))
-    
+        
+        db = get_db()
+        
+        # itemsList = []
+        
+        # Necesito crear un bucle debido a que el resultado de la QUERY es un objeto con todos los resultados.
+        # for item in g.Items.query.filter_by(name=name):
+        #     itemsList.append(item)
+            
+        return Service.check_items([item for item in g.Items.query.filter_by(name=name)])
+
+        
     @staticmethod
     @marshal_with(resource_fields)
     def filter_by_sell_in(sell_in):
-        """Return those items who satisfied the criteria of db.py method: Database.filter_by_sell_in(). It's basically filter those items whose sell_in is the same as the parameter
+        """Let us filter an Item by the sell_in of this item
 
         Args:
-            sell_in (int): The sell_in of the item
+            sell_in (int): Sell_in of the Item
 
         Returns:
-            list: Returns a list from the result of the method: Database.filter_by_sell_in()
+            list: Returns a List of Items that satisfies the query of Items Query Model, in this case. Those items whose have that sell_in
         """
-        return Service.check_items(Database.filter_by_sell_in(sell_in))
-    
+        
+        db = get_db()
+        
+        # itemsList = []
+        
+        # for item in g.Items.query.filter_by(sell_in=sell_in):
+        #     itemsList.append(item)
+            
+        return Service.check_items([item for item in g.Items.query.filter_by(sell_in=sell_in)])
 
+    
     @staticmethod
     @marshal_with(resource_fields)
     def filter_by_quality(quality):
-        """Return those items who satisfied the criteria of db.py method: Database.filter_by_quality(). It's basically filter those items whose quality is the same as the parameter
+        """Let us filter an Item by the quality of this item
 
         Args:
-            quality (int): The quality of the item
+            quality (int): quality of the Item
 
         Returns:
-            list: Returns a list from the result of the method: Database.filter_by_quality()
+            list: Returns a List of Items that satisfies the query of Items Query Model, in this case. Those items whose have that quality
         """
-        return Service.check_items(Database.filter_by_quality(quality))
+        
+        db = get_db()
+        
+        # itemsList = []
+        
+        # for item in g.Items.query.filter_by(quality=quality):
+        #     itemsList.append(item)
+            
+        return Service.check_items([item for item in g.Items.query.filter_by(quality=quality)])
+
     
     @staticmethod
     @marshal_with(resource_fields)
     def get_items():
-        """Return all items from our Database through the method: Database.get_items()
+        
+        """Get All Items from Database
 
         Returns:
-            list: Returns a list from the result of the method: Database.get_items()
+            (list): Returns a list with all Items
         """
         
-        return Database.get_items()
+        db = get_db()
+        
+        # itemsList = []
+        
+        # for item in g.Items.query.all():
+        #     itemsList.append(item)
+            
+        return [item for item in g.Items.query.all()]
+
     
     @staticmethod
-    def post_items(args_content):
-        """Add a new item, this through the method: Database.post_item() whose receive the args_content parameter
+    def post_item(args_content):
+        """Add a new item into de Database Ollivanders into the Items Table, don't return nothing
 
         Args:
-            args_content (dict): A dictionary that contains data from an Item
+            args_content (dict): Contains the dictionary from parse_args() method, which in the other module let us validate the Request object values
         """
+        db = get_db()
         
-        Database.post_item(args_content)
+        add_item = g.Items(name=args_content["name"], sell_in=args_content["sell_in"], quality=args_content["quality"])
         
-    
+        db.session.add(add_item)
+        db.session.commit()
+        
     @staticmethod
-    def delete_items(args_content):
-        """Delete an item, this through the method: Database.delete_item() whose receive the args_content parameter
+    def delete_item(args_content):
+        """Delete an item into de Database Ollivanders into the Items Table, don't return nothing
 
         Args:
-            args_content (dict): A dictionary that contains data from an Item
-
-        Returns:
-            dict: Returns a Dictionary with format of a Jsonify
+            args_content (dict): Contains the dictionary from parse_args() method, which in the other module let us validate the Request object values
         """
-        Database.delete_item(args_content)
         
-    
+        db = get_db()
+        
+        delete_item = g.Items.query.filter_by(name=args_content['name'], sell_in=args_content['sell_in'],quality=args_content['quality']).first()
+        
+        if not delete_item:
+            abort(404, message="Don't exist this item")
+            
+        else:
+            db.session.delete(delete_item)
+            db.session.commit()
+        
+        
     @staticmethod
     def update_quality():
-        """Gets all Items with their Quality updated, this through the method: Database.update_quality()
+        """Update the quality of ALL items that we have in DataBase and after we return the entire Inventory to the Cliente
 
         Returns:
-            list: Returns a list with al Items
+            (list): Returns a list with all Items, each item is a dictionary
         """
         
-        return Database.update_quality()
+        db = get_db()
+        
+        for item in g.Items.query.all():
+            
+            # Creamos el objeto Item a partir de la info de la Lista que insertamos en los párametros del método: createObjectItem()
+            itemObject = Factory.createObjectItem([item.name, item.sell_in, item.quality])
+            
+            # Actualizamos la calidad del item
+            itemObject.update_quality()
+            
+            # Actualizamos los datos de cada item
+            item.sell_in = itemObject.get_sell_in()
+            item.quality = itemObject.get_quality()
+            # Guardamos los datos actualizados
+            db.session.commit()
+        
+        return Service.get_items()
+    
