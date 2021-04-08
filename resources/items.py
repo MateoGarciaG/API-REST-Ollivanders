@@ -60,7 +60,7 @@ class Items(Resource):
         # Llamo al método post_items y le pasó el args_content
         Service.post_item(args_content)
         
-        response = make_response(jsonify('New Item has been added'))
+        response = make_response(jsonify({'message':'New Item has been added'}))
         response.headers['custom-response'] = 'The item was added successfully!'
         response.headers['Content-Type'] = 'application/json'
         response.status_code = 201
@@ -81,7 +81,7 @@ class Items(Resource):
         
         Service.delete_item(args_content)
         
-        response = make_response(jsonify(''))
+        response = make_response(jsonify({}))
         response.headers['custom-response'] = 'The item was delete successfully!'
         response.headers['Content-Type'] = 'application/json'
         response.status_code = 204
