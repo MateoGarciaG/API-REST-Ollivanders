@@ -55,7 +55,7 @@ class Factory():
             [Object]: Returns an Object which the type of this object depends of the Class which was selected from the name of the item
         """
         
-        dictClassesItems = {"Sulfuras, Hand of Ragnaros": "Sulfuras",
+        dictClassesItems = {"Sulfuras Hand of Ragnaros": "Sulfuras",
                                 "Aged Brie": "AgedBrie",
                                 "Backstage passes to a TAFKAL80ETC concert": "BackstagePasses",
                                 "Conjured Mana Cake": "Conjured",
