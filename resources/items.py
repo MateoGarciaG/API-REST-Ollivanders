@@ -24,6 +24,7 @@ class Items(Resource):
         response.headers['warning'] = 'Custom Warning, just appears when it\' an warning'
         
         return response
+        # return Service.filter_by_name(item_name), 200
     
     def parseRequest(self):
         """Let us validate values from the Request through "reqparse" and its object: RequestParser()
@@ -49,7 +50,7 @@ class Items(Resource):
         """Let us add a new item/resource
 
         Returns:
-            string: Returns a string with a message of the item has been added
+            make_response Object: Returns a custom make_response() object with a message of the item has been added
         """
         
         args_content = self.parseRequest()
@@ -57,7 +58,15 @@ class Items(Resource):
         # Llamo al método post_items y le pasó el args_content
         Service.post_item(args_content)
         
-        return 'New Item has been added', 201
+        response = make_response(jsonify('New Item has been added'))
+        response.headers['custom-response'] = 'The item was added successfully!'
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 201
+        response.headers['warning'] = 'Custom Warning, just appears when it\' an warning'
+        
+        return response
+        
+        # return 'New Item has been added', 201
     
     def delete(self):
         """Let us delete an item/resource
