@@ -64,3 +64,4 @@ def test_get_items(client):
     
     
     assert json.loads(response.data) == defaultInventory
+    assert response.status_code == 200

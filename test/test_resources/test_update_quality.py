@@ -56,3 +56,4 @@ def test_update_quality(client):
     response = client.get("/update_quality")
     
     assert json.loads(response.data) == expected_updated_inventory
+    assert response.status_code == 200
