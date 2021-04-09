@@ -145,14 +145,18 @@ class Service():
         
         db = get_db()
         
-        delete_item = g.Items.query.filter_by(name=args_content['name'], sell_in=args_content['sell_in'],quality=args_content['quality']).first()
+        # delete_item = g.Items.query.filter_by(name=args_content['name'], sell_in=args_content['sell_in'],quality=args_content['quality']).first()
         
-        if not delete_item:
-            abort(404, message="Don't exist this item")
+        # if not delete_item:
+        #     abort(404, message="Don't exist this item")
             
-        else:
-            db.session.delete(delete_item)
-            db.session.commit()
+        # else:
+            # db.session.delete(delete_item)
+            
+            #db.session.commit()
+        db.session.query(g.Items).filter(g.Items.name==args_content['name'], g.Items.sell_in==args_content['sell_in'],g.Items.quality==args_content['quality']).delete()
+        db.session.commit()
+        
         
         
     @staticmethod
