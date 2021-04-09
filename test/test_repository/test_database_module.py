@@ -7,23 +7,39 @@ from service.service import Service
 
 from repository.models.items import Items
 
-# @pytest.mark.db_test
-# def test_add_item_db(session):
+
+@pytest.mark.db_test
+def test_add_item_db(session):
     
-#     add_item = Items("Conjured Mana Cake", 5, 8)
+    add_item = Items("Conjured Mana Cake", 5, 8)
     
-#     session.add(add_item)
-#     session.commit()
+    session.add(add_item)
+    session.commit()
     
-#     assert add_item.name == "Conjured Mana Cake"
-#     assert add_item.sell_in == 5
-#     assert add_item.quality == 8
+    assert add_item.name == "Conjured Mana Cake"
+    assert add_item.sell_in == 5
+    assert add_item.quality == 8
     
 # @pytest.mark.db_test
 # def test_get_items_db(session):
     
-# @pytest.mark.db_test
-# def test_delete_item_db(session):
+@pytest.mark.db_test
+def test_delete_item_db(session):
+    
+    # Añadimos el item
+    add_item = Items("Conjured Mana Cake", 5, 8)
+    
+    session.add(add_item)
+    session.commit()
+    
+    session.query(Items).filter(Items.name=="Conjured Mana Cake", Items.sell_in==5, Items.quality==8).delete()
+    session.commit()
+    
+    for item in Items.query.all():
+        
+        assert item.name != "Conjured Mana Cake"
+        assert item.sell_in != 5
+        assert item.quality != 8
     
 # @pytest.mark.db_test
 # def test_udpate_quality_items_db(session):

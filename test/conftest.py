@@ -169,7 +169,49 @@ def client(app):
             _db.session.commit()
             # _db.session.close()
             # _db.drop_all()
+            
+            
+@pytest.fixture(scope='function')
+def db(app):
+    with app.test_client() as client:
+        with app.app_context():
+            _db.init_app(app)
+            # _db.drop_all()
+            _db.create_all()
+            
+            #         Obtenemos la lista con los items
+            inventario = Factory.loadInventory()
+            
+            # Poblamos la Base de datos introduciendo los datos
+            for item in inventario:
+                
+                add_item = Items(name=item["name"], sell_in=item["sell_in"], quality=item["quality"])
+                
+                _db.session.add(add_item)
+                _db.session.commit()
+            
+            yield _db
+            
+            _db.session.query(Items).delete()
+            _db.session.commit()
 
+
+# Tiene el scope='function' para que su alcance solo sea cada test
+@pytest.fixture(scope='function', autouse=True)
+def session(db):
+    connection = db.engine.connect()
+    transaction = connection.begin()
+    
+    options = dict(bind=connection, binds={})
+    session_ = db.create_scoped_session(options=options)
+    
+    db.session = session_
+    
+    yield session_
+    
+    transaction.rollback()
+    # connection.close()
+    session_.remove()
 
 # @pytest.fixture
 # def db(app):
