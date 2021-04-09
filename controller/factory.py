@@ -10,6 +10,7 @@ from resources.quality import Quality
 from resources.sellin import Sellin
 
 # Import from Repository the db_connection.py
+# from repository.db_mock import db_connection_mock
 from repository import db_connection
 
 def create_app():
@@ -27,6 +28,7 @@ def create_app():
     #     app.config.from_object("config.DevelopmentConfig")
 
     # Init the Flask APP
+    # db_connection_mock.init_app(app)
     # db_connection.init_app(app)
 
     #API REST to be able to test
