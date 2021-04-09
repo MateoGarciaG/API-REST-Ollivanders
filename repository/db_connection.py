@@ -22,8 +22,27 @@ def get_db():
         # SQLite
         # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databaseCarpeta/nombreDB.db'
         # MYSQL
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:power2021@127.0.0.1/ollivanders'
-        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+        # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:power2021@127.0.0.1/ollivanders'
+        # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+        
+        # En el caso de que el "Environment" del APP de FLASK es TEST, entonces la configuración de conexión a la Base de Datos está dirigida a la Base de datos: "ollivanderstest"
+        if app.config["ENV"] == "test":
+            
+            app.config["ENV"] = "test"
+            #Configuration APP Flask
+            # app.config.from_object("config.TestingConfig")
+            
+            app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:power2021@127.0.0.1/ollivanderstest'
+            app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+            
+        # En el caso contrario de que no sea TEST entonces redirige la conexión a la base de datos "ollivanders"
+        else:
+            # SQLite
+            # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databaseCarpeta/nombreDB.db'
+            # MYSQL
+            app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:power2021@127.0.0.1/ollivanders'
+            app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+        
         
         # Agrego el current_app con la APP de flask dentro del objeto SQLAlchemy
         db.init_app(app)
