@@ -20,8 +20,18 @@ def test_add_item_db(session):
     assert add_item.sell_in == 5
     assert add_item.quality == 8
     
-# @pytest.mark.db_test
-# def test_get_items_db(session):
+@pytest.mark.db_test
+def test_get_items_db(session):
+    
+    add_item = Items("Conjured Mana Cake", 5, 8)
+    
+    session.add(add_item)
+    session.commit()
+    
+    # Funciona, pero al parecer no carga los datos que ya están en la base de datos, por lo cual no tiene ninguno, lo que implica que tengo que agregar un nuevo objeto/row
+    items_db = [item for item in session.query(Items).all()]
+    
+    assert len(items_db) == 1
     
 @pytest.mark.db_test
 def test_delete_item_db(session):
@@ -32,10 +42,12 @@ def test_delete_item_db(session):
     session.add(add_item)
     session.commit()
     
+    # Ahora lo eliminamos
     session.query(Items).filter(Items.name=="Conjured Mana Cake", Items.sell_in==5, Items.quality==8).delete()
     session.commit()
     
-    for item in Items.query.all():
+    # Verificamos si efectivamente lo ha eliminado si ningún row es igual al que eliminamos, CAMBIARLO y REFACTORIZARLO
+    for item in session.query(Items).all():
         
         assert item.name != "Conjured Mana Cake"
         assert item.sell_in != 5
