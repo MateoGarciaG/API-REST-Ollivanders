@@ -13,6 +13,11 @@ from repository.repo import Factory
 
 @pytest.mark.db_test
 def test_add_item_db(session):
+    """Test if through session we can add an item
+
+    Args:
+        session (SQLAlchemy Object Session): It's the session object from SQLALchemy Instance
+    """
     
     add_item = Items("Conjured Mana Cake", 5, 8)
     
@@ -25,6 +30,11 @@ def test_add_item_db(session):
     
 @pytest.mark.db_test
 def test_get_items_db(session):
+    """Test if through session we can get all items
+
+    Args:
+        session (SQLAlchemy Object Session): It's the session object from SQLALchemy Instance
+    """
     
     add_item = Items("Conjured Mana Cake", 5, 8)
     
@@ -38,6 +48,11 @@ def test_get_items_db(session):
     
 @pytest.mark.db_test
 def test_delete_item_db(session):
+    """Test if through session we can delete an item
+
+    Args:
+        session (SQLAlchemy Object Session): It's the session object from SQLALchemy Instance
+    """
     
     # Añadimos el item
     add_item = Items("Conjured Mana Cake", 5, 8)
@@ -58,6 +73,11 @@ def test_delete_item_db(session):
     
 @pytest.mark.db_test
 def test_udpate_quality_items_db(session):
+    """Test if through session we can update the quality of all items
+
+    Args:
+        session (SQLAlchemy Object Session): It's the session object from SQLALchemy Instance
+    """
     
     # Añadimos el item
     add_item = Items("Conjured Mana Cake", 5, 8)
@@ -87,6 +107,11 @@ def test_udpate_quality_items_db(session):
     
 @pytest.mark.db_test
 def test_get_by_name_db(session):
+    """Test if through session we can get an item by its name
+
+    Args:
+        session (SQLAlchemy Object Session): It's the session object from SQLALchemy Instance
+    """
     
     # Añadimos el item
     add_item = Items("Conjured Mana Cake", 5, 8)
@@ -107,6 +132,11 @@ def test_get_by_name_db(session):
     
 @pytest.mark.db_test
 def test_get_by_sellin_db(session):
+    """Test if through session we can get an item by its sell_in
+
+    Args:
+        session (SQLAlchemy Object Session): It's the session object from SQLALchemy Instance
+    """
     
     # Añadimos el item
     add_item = Items("Conjured Mana Cake", 5, 8)
@@ -123,6 +153,11 @@ def test_get_by_sellin_db(session):
     
 @pytest.mark.db_test
 def test_get_by_quality_db(session):
+    """Test if through session we can get an item by its quality
+
+    Args:
+        session (SQLAlchemy Object Session): It's the session object from SQLALchemy Instance
+    """
     
     # Añadimos el item
     add_item = Items("Conjured Mana Cake", 5, 8)
