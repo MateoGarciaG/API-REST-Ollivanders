@@ -97,7 +97,18 @@ class Items(Resource):
             make_response Object: Returns a custom make_response() object without a message, but the header of the response object have a message of the item content has been updated
         """
         
-        args_content = self.parseRequest()
+        # Nos permite validad el objeto Request y sus valores
+        parser = reqparse.RequestParser(bundle_errors=True)
+        # ID of item
+        parser.add_argument('id', type=int, required=True, location='json', help="ID of the Item is required")
+        # Name of item
+        parser.add_argument('name', type=str, required=True, location='json', help="Name of the Item is required")
+        # Sell_in of Item
+        parser.add_argument('sell_in', type=int, required=True, location='json', help="Sell_in of the Item is required")
+        # Quality
+        parser.add_argument('quality', type=int, required=True, location='json', help="Quality of the Item is required")
+        
+        args_content = parser.parse_args()
         
         Service.put_item(args_content)
         
