@@ -1,6 +1,9 @@
 from flask import Flask
 from flask_restful import Resource, Api
 
+# Importamos CORS
+from flask_cors import CORS
+
 # Import Resources
 from resources.wellcome import Wellcome
 from resources.inventario import Inventario
@@ -16,6 +19,8 @@ from repository import db_connection
 def create_app():
 
     app = Flask(__name__)
+    
+    CORS(app)
 
     # if app.config["ENV"] == "production":
     #     #Configuration APP Flask

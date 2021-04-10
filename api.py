@@ -1,6 +1,9 @@
 from flask import Flask
 from flask_restful import Resource, Api
 
+# Importamos CORS
+from flask_cors import CORS
+
 # Import Resources
 from resources.wellcome import Wellcome
 from resources.inventario import Inventario
@@ -15,14 +18,16 @@ from repository import db_connection
 
 app = Flask(__name__)
 
+CORS(app)
+
 if app.config["ENV"] == "production":
-    #Configuration APP Flask
+    #Configuration APP Flask Production
     app.config.from_object("config.ProductionConfig")
 elif app.config["ENV"] == "testing":
-    #Configuration APP Flask
+    #Configuration APP Flask Testing
     app.config.from_object("config.TestingConfig")
 else:
-    #Configuration APP Flask
+    #Configuration APP Flask Development
     app.config.from_object("config.DevelopmentConfig")
 
 # Init the Flask APP
