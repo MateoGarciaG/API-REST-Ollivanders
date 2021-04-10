@@ -92,7 +92,7 @@ class Items(Resource):
         # DELETE Request don't receive a Message Response
         # return '', 204
         
-    def put(self):
+    def put(self, id_item):
         """Let us update the content of an item/resource
 
         Returns:
@@ -100,19 +100,19 @@ class Items(Resource):
         """
         
         # Nos permite validad el objeto Request y sus valores
-        parser = reqparse.RequestParser(bundle_errors=True)
-        # ID of item
-        parser.add_argument('id', type=int, required=True, location='json', help="ID of the Item is required")
-        # Name of item
-        parser.add_argument('name', type=str, required=True, location='json', help="Name of the Item is required")
-        # Sell_in of Item
-        parser.add_argument('sell_in', type=int, required=True, location='json', help="Sell_in of the Item is required")
-        # Quality
-        parser.add_argument('quality', type=int, required=True, location='json', help="Quality of the Item is required")
+        # parser = reqparse.RequestParser(bundle_errors=True)
+        # # ID of item
+        # parser.add_argument('id', type=int, required=True, location='json', help="ID of the Item is required")
+        # # Name of item
+        # parser.add_argument('name', type=str, required=True, location='json', help="Name of the Item is required")
+        # # Sell_in of Item
+        # parser.add_argument('sell_in', type=int, required=True, location='json', help="Sell_in of the Item is required")
+        # # Quality
+        # parser.add_argument('quality', type=int, required=True, location='json', help="Quality of the Item is required")
         
-        args_content = parser.parse_args()
+        args_content = self.parseRequest()
         
-        Service.put_item(args_content)
+        Service.put_item(id_item, args_content)
         
         response = make_response(jsonify("Item content updated successfully"))
         response.headers['custom-response'] = 'The item was delete successfully!'

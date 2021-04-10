@@ -36,7 +36,7 @@ api.add_resource(Wellcome, '/')
 api.add_resource(Inventario, '/inventory')
 # GET item by name: '/items/name/<string:item_name>'
 # POST, DELETE: '/items'
-api.add_resource(Items, '/items/name/<string:item_name>', '/items')
+api.add_resource(Items, '/items/name/<string:item_name>', '/items', '/items/id/<int:id_item>/')
 api.add_resource(Sellin, '/items/sellin/<int:item_sell_in>')
 api.add_resource(Quality, '/items/quality/<int:item_quality>')
 api.add_resource(UpdateQuality, '/update_quality')
