@@ -11,6 +11,8 @@ from repository.models.items import Items
 from repository.db_connection import init_app
 
 class TestConfig(object):
+    """TestConfig Class: Class with the configuration constants of Testing Envronment of APP Flask
+    """
     # DEBUG debe ser Falso para que no haya error del método SETUP al intentar ejecutar el APP Flask, por ahora es mejor dejarlo en False
     DEBUG = False
     TESTING = True
@@ -141,11 +143,25 @@ class TestConfig(object):
     
 @pytest.fixture
 def app():
+    """Get the APP Flask from the create_app() method from Factory of Controller Package
+
+    Yields:
+        Flask Intance: Yields a APP Flask
+    """
     app = create_app()
     yield app
 
 @pytest.fixture
 def client(app):
+    """Get the test_client of APP Flask, where before of Yield sentence, it adds the basic items into database and models with the main goal of each test use this data/items to test it and after each test the data of models and database restart by default. This help us to isolate each test from another test
+
+    Args:
+        app (Flask instance): APP Flask
+
+    Yields:
+        test_client: Yields a test_client from APP Flask to test our test cases
+    """
+    
     with app.test_client() as client:
         with app.app_context():
             _db.init_app(app)
@@ -173,6 +189,14 @@ def client(app):
             
 @pytest.fixture(scope='function')
 def db(app):
+    """Get the Database Object of SQLAlchemy, where before get the _db it's open the app_context() and init the app in the DB and create all Models, after the Models and database is filled in with the basic items from loadInventory(), after each test the data of models and database restart by default. The scope of this fixture is for each test function
+
+    Args:
+        app (flask instance): App Flask
+
+    Yields:
+        SQLAlchemy Instance: Yields a SQLAlchemy Object with the session init
+    """
     with app.test_client() as client:
         with app.app_context():
             _db.init_app(app)
@@ -199,6 +223,14 @@ def db(app):
 # Tiene el scope='function' para que su alcance solo sea cada test
 @pytest.fixture(scope='function', autouse=True)
 def session(db):
+    """Session fixture help us to do a transaction SQL for each test of repository test cases, this means that for each test function of repository package, session fixture opens a transaction in SQLAlchemy and Database MySQL where after finished the test, the transaction finished with a rollback, this means that all changes of each test actually don't affect the models and database at the finished because of Transactions SQL. Due to this fixture is for each test function, then the scope is function and the autouse is True
+
+    Args:
+        db (SQLAlchemy instance): It's a SQLALchemy Object
+
+    Yields:
+        SQLALchemy session: Yields a session of the SQLAlchemy Object for each test function
+    """
     connection = db.engine.connect()
     transaction = connection.begin()
     
