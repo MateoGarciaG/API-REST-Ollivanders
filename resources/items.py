@@ -114,10 +114,10 @@ class Items(Resource):
         
         Service.put_item(id_item, args_content)
         
-        response = make_response(jsonify("Item content updated successfully"))
+        response = make_response(jsonify({'message': "Item content updated successfully"}))
         response.headers['custom-response'] = 'The item was delete successfully!'
         response.headers['Content-Type'] = 'application/json'
-        response.status_code = 204
+        response.status_code = 201
         response.headers['warning'] = 'Custom Warning, just appears when it\' an warning'
         
         return response
