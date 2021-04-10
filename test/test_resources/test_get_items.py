@@ -52,7 +52,11 @@ defaultInventory = [
 
 @pytest.mark.db_test
 def test_get_items(client):
-# def test_get_items(client, session):
+    """Test the GET request of Inventario resource, test if since a request it can get all items
+
+    Args:
+        client (test_client Flask): It's the test_client() object from APP Flask
+    """
     
     # request_post = {"name": "Conjured Mana Cake", "sell_in": 4, "quality": 7}
     

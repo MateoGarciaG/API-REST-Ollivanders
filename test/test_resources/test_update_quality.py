@@ -52,6 +52,11 @@ expected_updated_inventory = [
 
 @pytest.mark.db_test
 def test_update_quality(client):
+    """Test the GET request of UpdateQuality resource, test if since a request it can get all items with their quality updated
+
+    Args:
+        client (test_client Flask): It's the test_client() object from APP Flask
+    """
     
     response = client.get("/update_quality")
     

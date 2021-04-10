@@ -5,8 +5,12 @@ import json
     
     
 @pytest.mark.db_test
-# def test_post_item(client, session):
 def test_post_item(client):
+    """Test the POST request of Items resource, test if since a request it can add an item
+
+    Args:
+        client (test_client Flask): It's the test_client() object from APP Flask
+    """
     
     # request_post = {"name": "Conjured Mana Cake", "sell_in": 4, "quality": 7}
     

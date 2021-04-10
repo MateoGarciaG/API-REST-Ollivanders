@@ -49,6 +49,11 @@ inventory_without_Conjured = [
     
 @pytest.mark.db_test
 def test_delete_item(client):
+    """Test the DELETE request of Items resource, test if since a request it can delete an item
+
+    Args:
+        client (test_client Flask): It's the test_client() object from APP Flask
+    """
     
     # request_post = {"name": "Conjured Mana Cake", "sell_in": 4, "quality": 7}
     
