@@ -156,11 +156,16 @@ class Service():
         
         
     @staticmethod
-    def put_item(args_content):
+    def put_item(id_item, args_content):
+        """Update the content of an item into de Database Ollivanders into the Items Table, don't return nothing
+
+        Args:
+            args_content (dict): Contains the dictionary from parse_args() method, which in the other module let us validate the Request object values
+        """
         
         db = get_db()
         
-        item_by_id = db.session.query(g.Items).filter(g.Items.name==args_content['id']).first()
+        item_by_id = db.session.query(g.Items).filter(g.Items.id==id_item).first()
         
         if not item_by_id:
             abort(404, message="Don't exist this item")
