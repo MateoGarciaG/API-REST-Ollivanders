@@ -160,6 +160,22 @@ class Service():
         
         
     @staticmethod
+    def put_item(args_content):
+        
+        db = get_db()
+        
+        item_by_id = db.session.query(g.Items).filter(g.Items.name==args_content['id']).first()
+        
+        if not item_by_id:
+            abort(404, message="Don't exist this item")
+        else:
+            item_by_id.name = args_content['name']
+            item_by_id.sell_in = args_content['sell_in']
+            item_by_id.quality = args_content['quality']
+        
+            db.session.commit()
+        
+    @staticmethod
     def update_quality():
         """Update the quality of ALL items that we have in DataBase and after we return the entire Inventory to the Cliente
 

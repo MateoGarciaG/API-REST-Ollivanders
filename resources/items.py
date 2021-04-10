@@ -91,3 +91,33 @@ class Items(Resource):
         
         # DELETE Request don't receive a Message Response
         # return '', 204
+        
+    def put(self):
+        """Let us update the content of an item/resource
+
+        Returns:
+            make_response Object: Returns a custom make_response() object without a message, but the header of the response object have a message of the item content has been updated
+        """
+        
+        # Nos permite validad el objeto Request y sus valores
+        parser = reqparse.RequestParser(bundle_errors=True)
+        # ID of item
+        parser.add_argument('id', type=int, required=True, location='json', help="ID of the Item is required")
+        # Name of item
+        parser.add_argument('name', type=str, required=True, location='json', help="Name of the Item is required")
+        # Sell_in of Item
+        parser.add_argument('sell_in', type=int, required=True, location='json', help="Sell_in of the Item is required")
+        # Quality
+        parser.add_argument('quality', type=int, required=True, location='json', help="Quality of the Item is required")
+        
+        args_content = parser.parse_args()
+        
+        Service.put_item(args_content)
+        
+        response = make_response(jsonify("Item content updated successfully"))
+        response.headers['custom-response'] = 'The item was delete successfully!'
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 204
+        response.headers['warning'] = 'Custom Warning, just appears when it\' an warning'
+        
+        return response
