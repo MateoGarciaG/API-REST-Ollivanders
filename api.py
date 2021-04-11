@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, redirect, render_template, url_for
 from flask_restful import Resource, Api
 
 # Importamos CORS
@@ -47,6 +47,35 @@ api.add_resource(Quality, '/items/quality/<int:item_quality>')
 api.add_resource(UpdateQuality, '/update_quality')
 
 
+#***********************************************************************
+
+#***********************************************************************
+
+#* APP ROUTES
+# ******************************************
+#* RUTE REDIRECCIONAR
+@app.route('/')
+def redireccionar():
+
+    """
+    RUTA REDIRECCIONAR A LA RUTA HOME
+    """
+
+    return redirect(url_for('login'))
+
+# ******************************************
+
+# ******************************************
+#* RUTE HOME
+@app.route('/login')
+def home():
+
+    """
+    RUTA HOME
+    """
+
+    return render_template('login.html')
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
-    
