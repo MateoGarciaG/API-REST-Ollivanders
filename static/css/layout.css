@@ -74,6 +74,14 @@ header:after {
 
 }
 
+@media(max-width:797px){
+    .titulo h1 {
+        font-size: 45px;
+        padding-right: 20px;
+    }
+
+}
+
 li, a {
     font-weight: 500;
     font-size: 25px;
@@ -141,6 +149,11 @@ label #btn, label #cancel {
 */
 
 @media screen and (max-width:800px) {
+
+    .titulo h1 {
+        font-size: 50px;
+        padding-right: 20px;
+    }
 
     header {
         position: fixed;
@@ -210,3 +223,145 @@ label #btn, label #cancel {
 /** ******************************************/
 
 /** ******************************************/
+
+
+/** BACKGROUND GIF */
+.section-first-panel {
+    height:100vh;
+    display:flex;
+    align-items:center;
+    flex-wrap: wrap;
+    color:#fff;
+}
+
+
+.panel{
+    max-width:960px;
+    padding-left:1rem;
+    padding-right:1rem;
+    margin:auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+
+.panel h2 {
+    padding: 30px;
+}
+
+
+/* Establecemos el GIF como background del primer section */
+.container-gif {
+    position:absolute;
+    /**Para que me permite observar el HEADER NAV encima del GIF*/
+    top:1;
+    left:0;
+    width:100%;
+    height:100vh;
+    /** esto me permite */
+    overflow:hidden;
+}
+
+.container-gif img {
+    min-height:100%;
+    min-width:100%;
+    opacity: 60%;
+}
+
+.first-panel {
+    background: none;
+    z-index: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.first-panel h2 {
+    font-size: 40px;
+}
+
+/** Imagenes que acompañan a la presentación de index.html */
+.index-presentation {
+    height:auto;
+    width: 370px;
+}
+
+/** Media Query cuando el tamaño es maximo 576px en la sección principal con el main, el gif y el contenido principal */
+
+@media screen and (max-width:576px) { 
+
+    .panel h2{
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .panel img {
+        width: 200px;
+        height: 200px;
+    }
+
+
+    .container-gif img {
+        min-height:100%;
+        min-width:100%;
+        opacity: 60%;
+        width:100%;
+    }
+
+    .first-panel h2{
+        font-size: 20px;
+    }
+
+    .first-panel img{
+        width: 200px;
+        height: 200px;
+    }
+
+}
+
+
+/************************* */
+
+
+/************************* */
+
+
+
+
+/** ******************************************/
+
+/** IMAGEN INTERMEDIA ENTRE SECTIONS SCROLLING */
+.img-scroll {
+    min-height: 400%;
+    position: relative;
+    opacity: 0.80;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 50px;
+    height: 300px;
+}
+
+
+/** ******************************************/
+
+.img-scrolling1 {
+    background-image: url('../img/content_img/gifs/space_revolution2_gif.');
+    width: 100%;
+    opacity: 0.40;
+}
+
+.img-scrolling2 {
+    background-image: url('../img/content_img/gifs/space_revolution2_gif.');
+    width: 100%;
+    /* position: relative; */
+    opacity: 0.40;
+}
+
+
+/************************* */
+
+

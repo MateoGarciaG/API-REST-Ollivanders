@@ -33,11 +33,14 @@ else:
 # Init the Flask APP
 db_connection.init_app(app)
 
+#*****************************************
+#* API SECTION
+
 #API REST to be able to test
 api = Api(app, catch_all_404s=True)
 
 # Add Resources
-api.add_resource(Wellcome, '/')
+# api.add_resource(Wellcome, '/')
 api.add_resource(Inventario, '/inventory')
 # GET item by name: '/items/name/<string:item_name>'
 # POST, DELETE: '/items'
@@ -53,7 +56,7 @@ api.add_resource(UpdateQuality, '/update_quality')
 
 #* APP ROUTES
 # ******************************************
-#* RUTE REDIRECCIONAR
+#* RUOTE REDIRECCIONAR
 @app.route('/')
 def redireccionar():
 
@@ -61,20 +64,46 @@ def redireccionar():
     RUTA REDIRECCIONAR A LA RUTA HOME
     """
 
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 # ******************************************
 
 # ******************************************
-#* RUTE HOME
-@app.route('/login')
+#* RUOTE HOME
+@app.route('/home')
 def home():
 
     """
-    RUTA HOME
+    RUTA home
+    """
+
+    return render_template('home.html')
+
+
+# ******************************************
+
+# ******************************************
+#* RUOTE LOGIN
+@app.route('/login')
+def login():
+
+    """
+    RUTA LOGIN
     """
 
     return render_template('login.html')
+
+
+# ******************************************
+#* RUOTE LOGIN
+@app.route('/register')
+def register():
+
+    """
+    RUTA REGISTER
+    """
+
+    return render_template('register.html')
 
 
 if __name__ == '__main__':
