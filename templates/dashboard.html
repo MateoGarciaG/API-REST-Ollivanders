@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    DashBoard
+{% endblock %}
+
+{% block nav %}
+
+    <!--Lista con el contenido principal del menú-->
+    <ul class="nav-ul">
+
+        <li>
+            <a href="{{ url_for('home') }}">Home</a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('logout') }}">Log Out</a>
+        </li>
+
+    </ul>
+
+
+{% endblock %}
+
+    {% block main %}
+
+    <!--Primer mensaje del index.html-->
+    <h2>DASHBOARD API</h2>
+
+
+    <!--Imagen que acompaña al h2-->
+    <img src="{{ url_for('static', filename='img/content_img/svg/Market launch-pana.svg')}}"  class="index-presentation" alt="">
+
+    {% endblock %}
+
+
+
+        <!--**************************************-->
+
+
+
+        {% block section %}
+
+        Welcome {{ name }}
+
+        Welcome {{ user_data }}
+
+        {% endblock %}
+
+
+    
+
+
+            <!--**************************************-->

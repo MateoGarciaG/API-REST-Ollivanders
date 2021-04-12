@@ -9,13 +9,28 @@
     <!--Lista con el contenido principal del menú-->
     <ul class="nav-ul">
 
-        <li>
-            <a href="{{ url_for('login') }}">Log in</a>
-        </li>
 
-        <li>
-            <a href="{{ url_for('register') }}">Sign Up</a>
-        </li>
+        {% if session['logged_in'] %}
+
+            <li>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('logout') }}">Log out</a>
+            </li>
+
+        {% else %}
+
+            <li>
+                <a href="{{ url_for('login') }}">Log in</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('register') }}">Sign Up</a>
+            </li>
+
+        {% endif%}
 
     </ul>
 
@@ -112,6 +127,7 @@
     <style>
 
         /************************* */
+/************************* */
 /** Section Silder Images */
 
 .section-slider {

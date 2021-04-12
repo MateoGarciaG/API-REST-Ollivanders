@@ -10,6 +10,7 @@ from flask.cli import with_appcontext
 # Models
 from repository.models.items import Items
 from repository.models.db_model import db
+from repository.models.users import User
 #Factory Class
 from repository.repo import Factory
 
@@ -50,6 +51,7 @@ def get_db():
         
         # Agregamos al objeto G, la propiedad ITEMS con el valor del modelo Items
         g.Items = Items
+        g.User = User
         
         return g.db
 
