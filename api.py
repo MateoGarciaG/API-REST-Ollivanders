@@ -115,15 +115,11 @@ class RegisterForm(FlaskForm):
 @app.before_request
 def before_request():
     
-    if 'user_id' in session:
-        
-        user = User.query.filter_by(username=session['user_id']).first()
-        
-    
-    else:
+    if 'user_id' not in session:
+
         user = {"name": "Guest"}
     
-    session['user_session'] = user
+        session['user_session'] = user
 
 
 
@@ -183,6 +179,8 @@ def login():
                 session['user_id'] = user.id
                 # Logged in = True
                 session['logged_in'] = True
+                # Asignar al session el objecto User
+                session['user_session'] = {"username": user.username}
                 
                 return redirect(url_for('dashboard'))
 

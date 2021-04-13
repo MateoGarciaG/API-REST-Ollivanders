@@ -279,8 +279,9 @@ label #btn, label #cancel {
 }
 
 .first-panel h2 {
-    font-size: 40px;
+    font-size: 170px;
 }
+
 
 /** Imagenes que acompañan a la presentación de index.html */
 .index-presentation {
@@ -349,13 +350,13 @@ label #btn, label #cancel {
 /** ******************************************/
 
 .img-scrolling1 {
-    background-image: url('../img/content_img/gifs/space_revolution2_gif.');
+    background-image: url('../img/content_img/gifs/space_revolution2_gif.gif');
     width: 100%;
     opacity: 0.40;
 }
 
 .img-scrolling2 {
-    background-image: url('../img/content_img/gifs/space_revolution2_gif.');
+    background-image: url('../img/content_img/gifs/space_revolution2_gif.gif');
     width: 100%;
     /* position: relative; */
     opacity: 0.40;

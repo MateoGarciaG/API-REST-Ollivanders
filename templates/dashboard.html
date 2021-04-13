@@ -41,6 +41,12 @@
 
         {% block section %}
 
+        <h1>Welcome {{ name }}. This is your Inventory</h1>
+
+        <br>
+
+        <br>
+
         <!--**************************************-->
 
         <!--SECTION con los comenarios-->
@@ -50,7 +56,6 @@
     
             <div id="comments" class="info-div">
     
-                <h2>Welcome {{ name }}. This is your Inventory</h2>
     
                     <div id="listitems">
 
@@ -59,27 +64,388 @@
 
                     </div>
 
+                    <div class="buttons-inventory">
+
 
                     <button id="inventory">See Inventory</button>
 
                     <button id="update_quality">Updated Inventory</button>
+
+
+                    </div>
+
+                    <br>
                 
 
                     <!--* FETCHS JAVASCRIPT. RECORDAR, SIEMPRE COLOCAR EL CONTENIDO HTML DENTOR DE LOS BLOCK JINJA, NUNCA FUERA-->
                     <!-- <script src="../js/fetchs.js"></script> -->
-                    <script src="{{ url_for('static', filename='js/fetchs.js')}}"></script>
 
 
             </div>
 
-        <!--?????????????????????????-->
+<!--?????????????????????????-->
 
         </section>
+
+
+        <!--* FOMULARIO-->
+    <section id="section-form">
+
+        <div class="info-div">
+
+
+        </div>
+
+        <!--?????????????????????????-->
+
+        <div id="form-formulario" class="info-div">
+
+
+            <form class="add-item" id="formulario">
+                <!-- <input type="text" name="id" placeholder="Id Item" required/> -->
+                <input type="text" name="name" placeholder="Item Name" required/>
+                <input type="text" name="sell_in" placeholder="Sell in"/>
+                <input type="text" name="quality" placeholder="Quality"/>
+
+
+                <input type="submit" value="Añadir Item" class="button-border"/>
+
+                <input type="reset" value="Reset" class="button-border"/>
+
+                <input type="button" name="delete" value="Eliminar Item" class="button-border"/>
+
+
+            </form>
+
+        </div>
+
+        <!--?????????????????????????-->
+
+    </section>
+
+
 
 <!--**************************************-->
 
 
-         <!--**************************************-->
+<!--**************************************-->
+
+
+                    <script>
+                        /* Generate Error Request HTML */
+function errorMessage(message) {
+
+    const listItems = document.querySelector('#listitems');
+
+    listItems.innerHTML = `
+    <div class="carta" id="error"> 
+        <div class="contenido">  
+            <div class="div-icon-user"> 
+                <img src="{{ url_for('static',filename='img/error-404.jpg') }}" class="user-icon" alt="">
+            </div>
+            <h4> Error: ${message} </h4>
+            <h5> Description: Al parecer la petición no ha funcionado </h5>
+        </div>
+    </div>
+    `
+}
+
+
+/***********************************************************/
+
+/* Get reference button of updatE_quality*/
+const updateQualityButton = document.querySelector("#update_quality");
+updateQualityButton.addEventListener("click", update_quality);
+
+
+function update_quality() {
+
+
+    /* const myRequest = new Request('/inventory', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: 'cors',
+        cache: 'default',
+    }); */
+
+    var miHeaders = new Headers();
+
+    var requestDetails = {
+        method: 'GET',
+        headers: miHeaders,
+        mode: 'cors',
+        cache: 'default'
+    };
+
+    fetch('http://127.0.0.1:5000/update_quality', requestDetails)
+    .then((response) => {
+        if(response.ok) {
+            console.log("Response Status:", response.status);
+            console.log("Reponse statuts text:", response.statusText);
+            response.json().then((json) => loadItems(json))
+        } else {
+            console.log("Response Status:", response.status);
+            console.log("Reponse statuts text:", response.statusText);  
+        }  
+    })
+    .catch((error) => {
+        //console.log(error.message);
+        errorMessage(error.message);
+    });
+}
+
+
+
+
+
+
+        /***********************************************/ 
+
+    /* Get reference button of updatE_quality*/
+    const inventoryButton = document.querySelector("#inventory");
+    inventoryButton.addEventListener("click", inventory); 
+
+    // Get stock
+    function inventory() {
+
+
+        /* const myRequest = new Request('/inventory', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors',
+            cache: 'default',
+        }); */
+
+        var miHeaders = new Headers();
+
+        var requestDetails = {
+            method: 'GET',
+            headers: miHeaders,
+            mode: 'cors',
+            cache: 'default'
+        };
+
+        fetch('http://127.0.0.1:5000/inventory', requestDetails)
+        .then((response) => {
+            if(response.ok) {
+                console.log("Response Status:", response.status);
+                console.log("Reponse statuts text:", response.statusText);
+                response.json().then((json) => loadItems(json))
+            } else {
+                console.log("Response Status:", response.status);
+                console.log("Reponse statuts text:", response.statusText);  
+            }  
+        })
+        .catch((error) => {
+            //console.log(error.message);
+            errorMessage(error.message);
+        });
+}
+
+    // Get stock items
+    function loadItems(items) {
+
+        const listItems = document.querySelector('#listitems');
+
+        listItems.innerHTML = items.map((item, i) => {
+
+            item_card = ``
+
+            if (item.name == "+5 Dexterity Vest") {
+                item_card = `
+                <div class="carta" id="item${i}"> 
+                <div class="contenido">  
+                    <div class="div-icon-user"> 
+                        <img src="../static/img/item_ollivanders.jpg" class="user-icon" alt="">
+                    </div>
+                    <h4> ${item.name} </h4> 
+                    <h5> Sell in: ${item.sell_in} </h5> 
+                    <h5> Quality: ${item.quality} </h5>
+                </div>
+            </div>
+                `
+            } 
+            
+            if (item.name == "Aged Brie") {
+                item_card = `
+                <div class="carta" id="item${i}"> 
+                <div class="contenido">  
+                    <div class="div-icon-user"> 
+                        <img src="../static/img/item_ollivanders.jpg" class="user-icon" alt="">
+                    </div>
+                    <h4> ${item.name} </h4> 
+                    <h5> Sell in: ${item.sell_in} </h5> 
+                    <h5> Quality: ${item.quality} </h5>
+                </div>
+            </div>
+                `
+            } 
+            
+            if (item.name == "Elixir of the Mongoose") {
+                item_card = `
+                <div class="carta" id="item${i}"> 
+                <div class="contenido">  
+                    <div class="div-icon-user"> 
+                        <img src="../static/img/item_ollivanders.jpg" class="user-icon" alt="">
+                    </div>
+                    <h4> ${item.name} </h4> 
+                    <h5> Sell in: ${item.sell_in} </h5> 
+                    <h5> Quality: ${item.quality} </h5>
+                </div>
+            </div>
+                `
+            } 
+            
+            if (item.name == "Sulfuras Hand of Ragnaros") {
+                item_card = `
+                <div class="carta" id="item${i}"> 
+                <div class="contenido">  
+                    <div class="div-icon-user"> 
+                        <img src="../static/img/item_ollivanders.jpg" class="user-icon" alt="">
+                    </div>
+                    <h4> ${item.name} </h4> 
+                    <h5> Sell in: ${item.sell_in} </h5> 
+                    <h5> Quality: ${item.quality} </h5>
+                </div>
+            </div>
+                `
+            }
+
+            if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
+                item_card = `
+                <div class="carta" id="item${i}"> 
+                <div class="contenido">  
+                    <div class="div-icon-user"> 
+                        <img src="../static/img/item_ollivanders.jpg" class="user-icon" alt="">
+                    </div>
+                    <h4> ${item.name} </h4> 
+                    <h5> Sell in: ${item.sell_in} </h5> 
+                    <h5> Quality: ${item.quality} </h5>
+                </div>
+            </div>
+                `
+            }
+
+            if (item.name == "Conjured Mana Cake") {
+                item_card = `
+                <div class="carta" id="item${i}"> 
+                <div class="contenido">  
+                    <div class="div-icon-user"> 
+                        <img src="../static/img/content_img/gifs/fuego_harry_potter.gif" class="user-icon" alt="">
+                    </div>
+                    <h4> ${item.name} </h4> 
+                    <h5> Sell in: ${item.sell_in} </h5> 
+                    <h5> Quality: ${item.quality} </h5>
+                </div>
+            </div>
+                `
+            }
+
+            return item_card;
+        }).join('');
+    }
+
+
+
+// FORM
+function logForm() {
+    let form = document.querySelector('.add-item');
+    console.log(
+        //form.elements.id.value,
+        form.elements.name.value,
+        form.elements.sell_in.value,
+        form.elements.quality.value);
+}
+
+
+// Reference to add_item button
+let form = document.querySelector('.add-item');
+form.addEventListener('submit', add_item);
+
+// ADD item
+function add_item() {
+
+    logForm();
+
+    let data = {
+        // id: this.elements.id.value,
+        name: this.elements.name.value,
+        sell_in: this.elements.sell_in.value,
+        quality: this.elements.quality.value
+    };
+
+    fetch('http://127.0.0.1:5000/items', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: 'cors',
+        cache: 'default'
+    })
+        .then((response) => {
+            if (response.ok) {
+                console.log("Response OK Status:", response.status);
+                console.log("Response OK status text:", response.statusText);
+            } else {
+                console.log("Response Status:", response.status);
+                console.log("Response Status text:", response.statusText);
+            }
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
+}
+
+
+// DELETE Item
+form.delete.addEventListener('click', deleteItem);
+
+function deleteItem() {
+
+    logForm();
+
+    let data = {
+        //id: form.elements.id.value,
+        name: form.elements.name.value,
+        sell_in: form.elements.sell_in.value,
+        quality: form.elements.quality.value
+    };
+
+    fetch('http://127.0.0.1:5000/items', {
+        method: 'DELETE',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then((response) => {
+            if (response.ok) {
+                console.log("Response OK Status:", response.status);
+                console.log("Response OK status text:", response.statusText);
+            } else {
+                console.log("Response Status:", response.status);
+                console.log("Response Status text:", response.statusText);
+            }
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
+}
+
+
+                    </script>
+
+
+
+<!--**************************************-->
+
+
+<!--**************************************-->
 
     <!--?????????????????????????-->
     <!--? Style FORM-->
@@ -297,7 +663,146 @@
 
 }
 
+
+/*********************************/
+/** BUTTONS *******************/
+.buttons-inventory {
+
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+
+
+
+/*********************************/
+/** FORMOLARIO *******************/
+
+
+#form-formulario {
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+}
+
+#formulario {
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+#formulario h3 {
+    margin: 25px;
+}
+
+
+
+
 /************************* */
+/**INPUTS*************************/
+
+.border-button {
+    border: 2px solid #49a1f8;
+    background: #49a1f8;
+}
+
+input {
+
+    height: 40px;
+    background: none;
+    font-size: 15px;
+    color: #fff;
+    border-bottom: 1px solid #fff;
+    border: none;
+    outline: none;
+    letter-spacing: 2px;
+    padding: 10px;
+    width: 365px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+label {
+    padding: 15px;
+}
+
+input:focus {
+    border-bottom: 2px solid #fff;
+}
+
+textarea {
+    background: none;
+    height: 100px;
+    padding: 10px 0;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #999;
+    margin-bottom: 55px;
+    width: 365px;
+}
+
+
+textarea:focus,
+input:focus,
+textarea:valid,
+input:valid{
+    border-bottom: 2px solid #49a1f8;
+    top:-12;
+    left:0;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 1.5s;
+}
+
+/** Si pasas el mouse por algún enlace del textarea e Input, se sombrea*/
+input:hover,
+textarea:hover {
+    background: #424647;
+    transition: .5s;
+    padding: 6px;
+    border-bottom: 2px solid #49a1f8;
+    border-radius: 8px;
+}
+
+
+/** Media Query cuando el tamaño es maximo 576px en la sección del formulario */
+
+@media screen and (max-width:576px) { 
+
+    label {
+        font-size: 14px;
+    }
+    
+    input {
+        font-size: 14px;
+        padding: 20px;
+        width: 80%;
+    }
+
+    textarea {
+        font-size: 14px;
+        width: 80%;
+    }
+}
+
+
 
 /************************* */
 

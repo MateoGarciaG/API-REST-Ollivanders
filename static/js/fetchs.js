@@ -214,3 +214,55 @@ function update_quality() {
             return item_card;
         }).join('');
     }
+
+
+
+// FORM
+function logForm() {
+    let form = document.querySelector('.add-item');
+    console.log(
+        form.elements.id.value,
+        form.elements.name.value,
+        form.elements.sell_in.value,
+        form.elements.quality.value);
+}
+
+
+// Reference to add_item button
+let form = document.querySelector('.add-item');
+form.addEventListener('submit', add_item);
+
+// ADD item
+function add_item() {
+
+    logForm();
+
+    let data = {
+        // id: this.elements.id.value,
+        name: this.elements.name.value,
+        sell_in: this.elements.sell_in.value,
+        quality: this.elements.quality.value
+    };
+
+    fetch('http://127.0.0.1:5000/items', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: 'cors',
+        cache: 'default'
+    })
+        .then((response) => {
+            if (response.ok) {
+                console.log("Response OK Status:", response.status);
+                console.log("Response OK status text:", response.statusText);
+            } else {
+                console.log("Response Status:", response.status);
+                console.log("Response Status text:", response.statusText);
+            }
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
+}
