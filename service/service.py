@@ -207,3 +207,47 @@ class Service():
         
         return Service.get_items()
     
+    
+    @staticmethod
+    def get_user_by_id(user_id):
+        
+        get_db()
+        
+        return g.User.query.get(int(user_id))
+    
+    # @staticmethod
+    # def service_before_request():
+        
+    #     get_db()
+        
+    #     if 'user_id' in session:
+            
+    #         user = g.User.query.filter_by(username=session['user_id']).first()
+            
+        
+    #     else:
+    #         user = {"name": "Guest"}
+        
+    #     g.user_session = user
+        
+    @staticmethod
+    def get_user_by_username(username):
+        
+        get_db()
+        
+        return g.User.query.filter_by(username=username).first()
+    
+    @staticmethod
+    def add_user(username, password):
+        
+        db = get_db()
+        
+        new_user = g.User(username=username, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        
+        
+    # @staticmethod
+    # def get_user_session():
+        
+        
