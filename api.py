@@ -1,5 +1,5 @@
 # Flask and Flask things
-from flask import Flask, request, redirect, render_template, url_for, g, session
+from flask import Flask, request, redirect, render_template, url_for, session
 from flask_wtf import FlaskForm
 from flask_bootstrap import Bootstrap
 from wtforms import StringField, PasswordField, BooleanField
@@ -23,10 +23,14 @@ from resources.sellin import Sellin
 
 # Import from Repository the db_connection.py
 from repository import db_connection
-# * iMPORT Get_db
 
 # Import Users Model SQLAlchemy
 from repository.models.users import User
+
+
+# SERVICES Methods to help us with Users, Login and Register
+from service.service import Service
+
 
 app = Flask(__name__)
 # secret key
@@ -84,9 +88,7 @@ bootstrap = Bootstrap(app)
 @login_manager.user_loader
 def load_user(user_id):
     
-    db_connection.get_db()
-    
-    return g.User.query.get(int(user_id))
+    return Service.get_user_by_id(user_id)
 
 
 
@@ -108,22 +110,21 @@ class RegisterForm(FlaskForm):
 
 # ***********************************************************************
 
-# * BEFORE request
+# * BEFORE request. NO USAR OBJECTO G DENTRO DE ESTA VIEW @BEFORE_REQUEST
 # ******************************************
 @app.before_request
 def before_request():
     
-    db_connection.get_db()
-    
     if 'user_id' in session:
         
-        user = g.User.query.filter_by(username=session['user_id']).first()
+        user = User.query.filter_by(username=session['user_id']).first()
         
     
     else:
         user = {"name": "Guest"}
     
-    g.user_session = user
+    session['user_session'] = user
+
 
 
 # * APP ROUTES
@@ -161,7 +162,7 @@ def login():
     RUTA LOGIN
     """
     
-    db_connection.get_db()
+    # db_connection.get_db()
 
     form = LoginForm()
 
@@ -171,7 +172,9 @@ def login():
         session.pop('user_id', None)
         session['logged_in'] = False
         
-        user = g.User.query.filter_by(username=form.username.data).first()
+        # user = g.User.query.filter_by(username=form.username.data).first()
+        user = Service.get_user_by_username(form.username.data)
+        
         if user:
             if check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
@@ -201,15 +204,17 @@ def register():
     RUTA REGISTER
     """
 
-    db = db_connection.get_db()
+    # db = db_connection.get_db()
 
     form = RegisterForm()
 
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data, method='sha256')
-        new_user = g.User(username=form.username.data, password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
+        # new_user = g.User(username=form.username.data, password=hashed_password)
+        # db.session.add(new_user)
+        # db.session.commit()
+        
+        Service.add_user(form.username.data, hashed_password)
 
         return render_template('register.html', form="", success=True)
         # return '<h1>New user has been created!</h1>'
@@ -229,10 +234,10 @@ def register():
 @login_required
 def dashboard():
     
-    if g.user_session == {"name": "Guest"}:
+    if session['user_session'] == {"name": "Guest"}:
         return redirect(url_for('login'))
     
-    return render_template('dashboard.html', name=current_user.username, user_data=g.user_session)
+    return render_template('dashboard.html', name=current_user.username)
 
 
 # ******************************************
