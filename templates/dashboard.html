@@ -41,6 +41,12 @@
 
         {% block section %}
 
+
+        <img src="{{ url_for('static', filename='img/content_img/svg/witcher_flying.svg')}}" alt="" width="350px" height="350px">
+
+                <br>
+                <br>
+
         <h1>Welcome {{ name }}. This is your Inventory</h1>
 
         <br>
@@ -87,8 +93,18 @@
 
         </section>
 
+        <!--**************************************-->
+    
+        <!--IMAGEN DE FONDO SCROLLING, todo se hace en CSS respecto a aestá clase. Por eso este DIV está vacío-->
+        <div class="img-scroll img-scrolling1">
+            <img src="{{ url_for('static', filename='img/content_img/gifs/space_revolution2_gif.gif')}}" alt="" height="160px" >
+        </div>
+    
+        
+        <!--**************************************-->
 
-        <!--* FOMULARIO-->
+
+        <!--* FOMULARIO POST and DELETE-->
     <section id="section-form">
 
         <div class="info-div">
@@ -102,6 +118,14 @@
 
 
             <form class="add-item" id="formulario">
+
+                <img src="{{ url_for('static', filename='img/content_img/svg/witcher_hat.svg')}}" alt="" width="220px" height="220px">
+
+                <br>
+                <br>
+
+                <h1>Add or Delete an Item</h1>
+
                 <!-- <input type="text" name="id" placeholder="Id Item" required/> -->
                 <input type="text" name="name" placeholder="Item Name" required/>
                 <input type="text" name="sell_in" placeholder="Sell in"/>
@@ -120,6 +144,61 @@
         </div>
 
         <!--?????????????????????????-->
+
+    </section>
+
+    <!--**************************************-->
+    
+        <!--IMAGEN DE FONDO SCROLLING, todo se hace en CSS respecto a aestá clase. Por eso este DIV está vacío-->
+        <div class="img-scroll img-scrolling2">
+            <img src="{{ url_for('static', filename='img/content_img/gifs/space_revolution2_gif.gif')}}" alt="" height="160px">
+        </div>
+    
+        
+        <!--**************************************-->
+
+    <!--* FOMULARIO-->
+    <section id="section-form">
+
+    <!-- <div id="form-formulario" class="info-div">
+        <form class="get-item">
+            <input type="text" name="name" placeholder="Item Name" required/>
+            <input type="button" name="getItem" value="Get Item"/>
+        </form> -->
+
+        <div id="form-formulario" class="info-div">
+
+        <form class="get-item" id="formulario">
+
+            <img src="{{ url_for('static', filename='img/content_img/svg/witcher_hat.svg')}}" alt="" width="220px" height="220px">
+
+                <br>
+                <br>
+
+            <h1>
+                Search Item By:
+            </h1>
+
+            <!-- <label for="name">Search Item By:</label> -->
+            <input type="text" name="name" id="name" placeholder="Item Name" required/>
+
+            <select name="selector">
+
+                <option value="name">Name</option>
+                <option value="quality">Quality</option>
+                <option value="sell_in">Sell in</option>
+
+            </select>
+
+            <input type="button" name="getItem" value="Get Item"/>
+
+
+
+        </form>
+
+    </div>
+
+
 
     </section>
 
@@ -438,6 +517,79 @@ function deleteItem() {
 }
 
 
+// GET item by NAME
+let item = document.querySelector('.get-item')
+item.addEventListener('click', getItem);
+
+function getItem() {
+
+    logFormGetItem();
+
+    //let data = {
+        //name: item.elements.name.value,
+    //};
+
+    let data;
+    let resource;
+
+    if (item.elements.selector.value == "name") {
+
+        data = `${item.elements.name.value}`;
+
+        resource = "name"
+
+    }
+
+    if (item.elements.selector.value == "quality") {
+
+        data = `${item.elements.name.value}`;
+
+        resource = "quality"
+
+    }
+
+    if (item.elements.selector.value == "sell_in") {
+
+        data = `${item.elements.name.value}`;
+
+        resource = "sell_in"
+
+    }
+
+    fetch(`http://127.0.0.1:5000/items/${resource}/${data}`
+        // , {
+        //     method: 'GET',
+        //     body: JSON.stringify(data),
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     }}
+    )
+        .then((response) => {
+            if (response.ok) {
+                console.log("Response OK Status:", response.status);
+                console.log("Response OK status text:", response.statusText);
+                response.json().then((json) => loadItems(json));
+            } else {
+                console.log("Response Status:", response.status);
+                console.log("Response Status text:", response.statusText);
+            }
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
+}
+
+
+// GET NAME
+function logFormGetItem() {
+    let form = document.querySelector('.get-item');
+    console.log(
+        form.elements.name.value)
+}
+
+
+
+
                     </script>
 
 
@@ -720,7 +872,7 @@ function deleteItem() {
     background: #49a1f8;
 }
 
-input {
+input, select {
 
     height: 40px;
     background: none;
@@ -760,8 +912,10 @@ textarea {
 
 textarea:focus,
 input:focus,
+select:focus,
 textarea:valid,
-input:valid{
+input:valid,
+select:valid{
     border-bottom: 2px solid #49a1f8;
     top:-12;
     left:0;
@@ -773,7 +927,8 @@ input:valid{
 
 /** Si pasas el mouse por algún enlace del textarea e Input, se sombrea*/
 input:hover,
-textarea:hover {
+textarea:hover,
+select:hover {
     background: #424647;
     transition: .5s;
     padding: 6px;
@@ -790,7 +945,7 @@ textarea:hover {
         font-size: 14px;
     }
     
-    input {
+    input, select {
         font-size: 14px;
         padding: 20px;
         width: 80%;
@@ -835,6 +990,25 @@ button:hover {
     background: #49a1f8;
     cursor: pointer;
 }
+
+
+/** ******************************************/
+
+.img-scrolling1 img{
+    background-image: url('../static/img/content_img/gifs/space_revolution2_gif.gif');
+    width: 100%;
+    opacity: 0.40;
+}
+
+.img-scrolling2 img{
+    background-image: url('../static/img/content_img/gifs/space_revolution2_gif.gif');
+    width: 100%;
+    /* position: relative; */
+    opacity: 0.40;
+}
+
+
+/************************* */
 
 
     </style>

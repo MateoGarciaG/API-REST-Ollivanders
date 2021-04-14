@@ -1,5 +1,5 @@
 # Flask and Flask things
-from flask import Flask, request, redirect, render_template, url_for, session
+from flask import Flask, request, redirect, render_template, url_for, session, flash
 from flask_wtf import FlaskForm
 from flask_bootstrap import Bootstrap
 from wtforms import StringField, PasswordField, BooleanField
@@ -213,8 +213,10 @@ def register():
         # db.session.commit()
         
         Service.add_user(form.username.data, hashed_password)
+        
+        # flash("You've been registered", "success")
 
-        return render_template('register.html', form="", success=True)
+        return render_template('register.html', form=form, success=True)
         # return '<h1>New user has been created!</h1>'
         # return redirect(url_for('login'))
         # return '<h1>' + form.username.data + ' ' + form.email.data + ' ' + form.password.data + '</h1>'

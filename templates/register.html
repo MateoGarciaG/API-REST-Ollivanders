@@ -58,6 +58,11 @@
 
         <div id="form-formulario" class="info-div">
 
+            <img src="{{ url_for('static', filename='img/content_img/svg/wand_star.svg')}}" alt="" width="350px" height="350px">
+
+                <br>
+                <br>
+
             <h3>
                 Sign Up and Begin to use our API
             </h3>
@@ -108,6 +113,16 @@
 
                 
               </form>
+
+            
+            <!--If user already exists -->
+            {% if success %}
+
+            <script>
+                alert("You've been registered successfully!");
+            </script>
+
+            {% endif %}
 
 
 
